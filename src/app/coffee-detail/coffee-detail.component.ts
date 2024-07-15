@@ -15,5 +15,17 @@ export class CoffeeDetailComponent {
 
   roastOptions : RoastType[] = ['dark','light','medium','medium-dark']
   formatOptions : FormatType[] = ['beans','ground','k-pod'] 
-  
+  coffee: Coffee = {
+      "id": 845,
+			"active": true,
+			"roaster": "Counter Culture",
+			"variety": '',
+			"size": 24,
+			"roast": "dark",
+			"format": "k-pod",
+			"grind": 8,
+			"origin": [],
+			"singleOrigin": true,
+			"tastingNotes": "test"
+  }
 }

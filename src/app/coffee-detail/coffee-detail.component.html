@@ -1,1 +1,51 @@
-<p>coffee-detail works!</p>
+  <form>
+    <label>Roaster </label>
+    <input type="text" name="roaster" [(ngModel)]="coffee.roaster">
+<br>
+
+    <label>Variety </label>
+    <input type="text" name="variety" [(ngModel)]="coffee.variety">
+    <br>
+
+    <label>Size </label>
+    <input type="number" name="size" [(ngModel)]="coffee.size">
+    <br>
+
+    <div>
+ 
+        <label style="padding-right: 5px;">Roast Type</label>
+        <select id="roastType" name="roastType" type="select"  [(ngModel)]="coffee.roast" required>
+            <option *ngFor="let type of roastOptions" [value]="type">{{type}}</option>
+        </select>
+    </div>
+     
+    <div>
+        <label style="padding-right: 5px;">Format</label>
+        <select id="formatType" name="formatType" type="select" [(ngModel)]="coffee.format" required>
+            <option *ngFor="let f of formatOptions" [value]="f">{{f}}</option>
+        </select>
+    </div>
+
+    <label for="grind" class="form-label">Grind</label>
+    <input type="range" class="form-range" min="0" max="10" id="customRange2" [(ngModel)]="coffee.grind">
+
+    <br>
+    <label>Origin </label>
+    <input type="text" name="origin">
+
+    <div class="singleOrigin">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="coffee.singleOrigin" checked>
+        <label class="form-check-label" for="flexSwitchCheckChecked">Single Origin</label>
+      </div>
+
+
+    <div class="Tasting Notes">
+        <label for="TastingNotes" class="form-label">Tasting Notes</label>
+        <textarea class="form-control" name="tastingNotes" id="tastingNotes" rows="3" placeholder="Tasting notes or “flavor notes” are a taster's written description about the aroma, taste, and character of a coffee." [(ngModel)]="coffee.tastingNotes"></textarea>
+    </div>
+ 
+
+
+
+  </form>
+    
