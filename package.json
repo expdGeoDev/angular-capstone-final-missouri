@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+		"rest-server": "json-server --watch src/data/coffee-data.json --port 8100",
     "test": "ng test"
   },
   "private": true,
