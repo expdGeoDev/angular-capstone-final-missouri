@@ -13,5 +13,4 @@ export interface Coffee{
     origin: string[];
     singleOrigin : boolean;
     tastingNotes : string;
-
 }
