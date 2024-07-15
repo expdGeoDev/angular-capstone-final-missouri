@@ -1,4 +1,4 @@
-  <form>
+  <form #coffeeDetailForm="ngForm" (ngSubmit)="saveCoffee(coffee)">
     <label>Roaster </label>
     <input type="text" name="roaster" [(ngModel)]="coffee.roaster">
 <br>
@@ -46,8 +46,10 @@
         <label for="TastingNotes" class="form-label">Tasting Notes</label>
         <textarea class="form-control" name="tastingNotes" id="tastingNotes" rows="3" placeholder="Tasting notes or “flavor notes” are a taster's written description about the aroma, taste, and character of a coffee." [(ngModel)]="coffee.tastingNotes"></textarea>
     </div>
- 
-
+    <div class="buttons">
+        <button type="submit" [disabled]="coffeeDetailForm.form.invalid" name="Submit">Submit</button>
+        <button type="button" name="Reset" (click)="coffeeDetailForm.resetForm()">Reset</button>
+    </div>
 
 
   </form>

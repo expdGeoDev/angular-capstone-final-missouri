@@ -28,4 +28,8 @@ export class CoffeeDetailComponent {
 			"singleOrigin": true,
 			"tastingNotes": "test"
   }
+
+  public saveCoffee(coffee:Coffee){
+    console.log(coffee)
+  }
 }
