@@ -24,7 +24,7 @@ export class CoffeeDetailComponent {
 			"roast": "dark",
 			"format": "k-pod",
 			"grind": 8,
-			"origin": [],
+			"origin": ['Brasil'],
 			"singleOrigin": true,
 			"tastingNotes": "test"
   }

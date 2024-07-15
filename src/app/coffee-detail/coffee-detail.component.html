@@ -27,14 +27,17 @@
     </div>
 
     <label for="grind" class="form-label">Grind</label>
-    <input type="range" class="form-range" min="0" max="10" id="customRange2" [(ngModel)]="coffee.grind">
+    <input type="range" name= "grind" class="form-range" min="0" max="10" id="customRange2" [(ngModel)]="coffee.grind">
 
     <br>
-    <label>Origin </label>
-    <input type="text" name="origin">
+    <div>
+
+        <label>Origin </label>
+        <input type="text" name="origin" [(ngModel)]="coffee.origin">
+    </div>
 
     <div class="singleOrigin">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="coffee.singleOrigin" checked>
+        <input class="form-check-input" type="checkbox" name= "singleOrigin" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="coffee.singleOrigin" checked>
         <label class="form-check-label" for="flexSwitchCheckChecked">Single Origin</label>
       </div>
 
