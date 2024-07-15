@@ -1,0 +1,10 @@
+
+<div class="row">
+    <div class="col">
+        <p>Lista de cafés</p>
+        <ul>
+            <!-- <li *ngFor="let coffee of coffees | async as value">{{ coffee.brand}}</li> -->
+            <li *ngFor="let coffee of coffees | async as value">{{coffee.roaster}} | {{coffee.active}} | {{coffee.grind}}</li>
+        </ul>
+    </div>
+</div>
