@@ -1,38 +1,43 @@
-  <form>
-    <label>Roaster </label>
-    <input type="text" name="roaster" [(ngModel)]="coffee.roaster">
-<br>
+  <form class="container">
+    <h1>Coffee Information</h1>
+    <label class="label">Roaster</label>
+    <input type="text" id="roaster" name="roaster" [(ngModel)]="coffee.roaster">
+    <br>
 
-    <label>Variety </label>
+    <label class="label">Variety </label>
     <input type="text" name="variety" [(ngModel)]="coffee.variety">
     <br>
 
-    <label>Size </label>
+    <label class="label">Size </label>
     <input type="number" name="size" [(ngModel)]="coffee.size">
     <br>
 
+    <div class="dropDown">
     <div>
- 
-        <label style="padding-right: 5px;">Roast Type</label>
+        <label class="label" style="padding-right: 5px;">Roast Type</label>
         <select id="roastType" name="roastType" type="select"  [(ngModel)]="coffee.roast" required>
             <option *ngFor="let type of roastOptions" [value]="type">{{type}}</option>
         </select>
     </div>
      
     <div>
-        <label style="padding-right: 5px;">Format</label>
+        <label class="label" style="padding-right: 5px;">Format</label>
         <select id="formatType" name="formatType" type="select" [(ngModel)]="coffee.format" required>
             <option *ngFor="let f of formatOptions" [value]="f">{{f}}</option>
         </select>
     </div>
+    
 
-    <label for="grind" class="form-label">Grind</label>
-    <input type="range" name= "grind" class="form-range" min="0" max="10" id="customRange2" [(ngModel)]="coffee.grind">
-
+    <div>
+        <label class="label" for="grind" class="form-label">Grind: </label>
+        <input type="range" name= "grind" class="form-range" min="1" max="10" id="customRange2" [(ngModel)]="coffee.grind">
+        <span>{{coffee.grind}}</span>
+    </div>
+</div>
     <br>
     <div>
 
-        <label>Origin </label>
+        <label class="label">Origin </label>
         <input type="text" name="origin" [(ngModel)]="coffee.origin">
     </div>
 
@@ -42,13 +47,10 @@
       </div>
 
 
-    <div class="Tasting Notes">
-        <label for="TastingNotes" class="form-label">Tasting Notes</label>
+    <div class="TastingNotes">
+        <label class="label" for="TastingNotes" >Tasting Notes</label>
         <textarea class="form-control" name="tastingNotes" id="tastingNotes" rows="3" placeholder="Tasting notes or “flavor notes” are a taster's written description about the aroma, taste, and character of a coffee." [(ngModel)]="coffee.tastingNotes"></textarea>
     </div>
  
-
-
-
   </form>
     

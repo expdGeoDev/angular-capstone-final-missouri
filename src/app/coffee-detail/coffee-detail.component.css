@@ -1,0 +1,46 @@
+.container{
+    display: flex;
+    flex-direction: column; 
+    margin-top: 15px;
+    border: 1px solid;
+    border-radius: 10px;
+
+    }
+
+.label{
+    font-weight: bolder;
+}
+
+.TastingNotes{
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.dropDown{
+
+    display:grid;
+    grid-template-columns:3fr 3fr 3fr;
+    /* flex-direction: row;
+    justify-content: center; */
+
+}
+
+#roastType{
+    padding-right: 50px;
+}
+
+#formatType{
+    padding-right: 100px;
+}
+
+section div.radio {
+    display: block;
+    font-size: 20px;
+  }
+
+h1{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
