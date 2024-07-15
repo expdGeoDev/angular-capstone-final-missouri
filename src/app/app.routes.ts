@@ -1,3 +1,10 @@
-import { Routes } from '@angular/router';
+import { CoffeeDetailComponent } from "./coffee-detail/coffee-detail.component";
 
-export const routes: Routes = [];
+export const routerStates = [
+    {
+        name : 'coffee-detail',
+        url: '/coffee-detail',
+        component: CoffeeDetailComponent,
+        label : 'Coffee Detail'
+    }
+]
