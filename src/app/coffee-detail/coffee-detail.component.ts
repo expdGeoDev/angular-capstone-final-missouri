@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Coffee, FormatType, RoastType } from '../model/coffee';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CoffeeService } from '../coffee-service';
 
 
 @Component({
@@ -12,6 +13,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './coffee-detail.component.css'
 })
 export class CoffeeDetailComponent {
+
+  constructor(private coffeeSvc : CoffeeService){};
 
   roastOptions : RoastType[] = ['dark','light','medium','medium-dark']
   formatOptions : FormatType[] = ['beans','ground','k-pod'] 
@@ -27,5 +30,11 @@ export class CoffeeDetailComponent {
 			"origin": ['Brasil'],
 			"singleOrigin": true,
 			"tastingNotes": "test"
+  }
+
+  public saveCoffee(coffee:Coffee){
+    this.coffeeSvc.addCoffee(coffee).subscribe(newCoffee =>{
+      console.log('New Coffee Added' + newCoffee);
+    })
   }
 }
