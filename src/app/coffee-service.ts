@@ -17,7 +17,6 @@ export class CoffeeService {
     this.http.get<any>('assets/config.json').subscribe(
       config => {
         this.apiUrl = config.apiUrl;
-        console.log(config);
       }
     );
   }
@@ -30,6 +29,13 @@ export class CoffeeService {
   }
   addCoffee(coffee:Coffee):Observable<Coffee>{
     return this.http.post<Coffee>(this.apiUrl, coffee)
+  }
+  updateCoffee(coffee:Coffee){
+    this.http.put<Coffee>(this.apiUrl + '/' + coffee.id, coffee).subscribe();
+  }
+  deleteCoffee(coffee:Coffee) {
+    coffee.active = false;
+    this.http.put<Coffee>(this.apiUrl + '/' + coffee.id, coffee).subscribe();
   }
 }
 
