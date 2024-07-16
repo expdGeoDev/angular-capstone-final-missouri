@@ -19,19 +19,10 @@ export class CoffeeService {
 
   private loadConfig(){
     this.rootUrl = this.data['apiUrl'];
-    // this.http.get<any>('assets/config.json').subscribe(
-    //   config => {
-    //     this.rootUrl = config.apiUrl;
-    //     console.log(this.data);
-    //   }
-    // );
   }
 
   getAll() : Observable<Coffee[]>{
-    console.log()
-    let finalUrl = this.rootUrl
-    return this.http.get<Coffee[]>(finalUrl)
-
+    return this.http.get<Coffee[]>(this.rootUrl + '/?active=true')
   }
 
   getById(id:string) : Observable<Coffee[]>{
@@ -41,5 +32,15 @@ export class CoffeeService {
   addCoffee(coffee:Coffee):Observable<Coffee>{
     return this.http.post<Coffee>(this.rootUrl, coffee)
   }
+
+  updateCoffee(coffee:Coffee){
+    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
+  }
+
+  deleteCoffee(coffee:Coffee) {
+    coffee.active = false;
+    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
+  }
+
 }
 
