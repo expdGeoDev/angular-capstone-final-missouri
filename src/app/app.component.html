@@ -1,10 +1,7 @@
-<main class="container-fluid">
-    <header class="row">
-        <div class="col">
-            <h1>Coffee Orders</h1>
-            <hr />
-        </div>
-        <app-navbar></app-navbar>
-        <ui-view></ui-view>
-    </header>
-</main>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<div>
+		<a  class="navbar-brand"  uiSref="coffee-detail" uiSrefActive="active"> 	Create Coffee</a>
+		<a  class="navbar-brand"  uiSref="coffee-svc-test" uiSrefActive="active"> 	Coffee List</a>
+	</div>
+</nav>
+<ui-view></ui-view>

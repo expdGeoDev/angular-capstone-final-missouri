@@ -1,0 +1,88 @@
+  <form class="container" #coffeeDetailForm="ngForm" (ngSubmit)="saveCoffee(coffee)">
+        <h1>Coffee Information</h1>
+        
+        <label class="label">Roaster*</label>
+        <input type="text" id="roaster" name="roaster" [(ngModel)]="coffee.roaster" required #roaster="ngModel">
+        <div *ngIf="roaster.invalid && (roaster.dirty || roaster.touched)" class="error">
+            Roaster is required.
+          </div>
+    <br>
+
+        
+
+    <div class="dropDown">
+        <div>
+            <label class="label" style="padding-right: 5px;">Roast Type</label>
+            <select id="roastType" name="roastType" type="select"  [(ngModel)]="coffee.roast" required>
+                <option *ngFor="let type of roastOptions" [value]="type">{{type}}</option>
+            </select>
+        </div>
+     
+        <div>
+            <label class="label" style="padding-right: 5px;">Format</label>
+            <select id="formatType" name="formatType" type="select" [(ngModel)]="coffee.format" required>
+                <option *ngFor="let f of formatOptions" [value]="f">{{f}}</option>
+            </select>
+        </div>
+
+    </div>
+    <br>
+
+
+    <div class="originMaster">
+                
+        <div class="originName">
+            <label class="label">Origin(s) </label>
+            <input type="text" name="origin" placeholder="Please separate different origins with comma" [(ngModel)]="coffee.origin">
+        </div>
+
+        <div class="form-check form-switch" id="singleOrigin">
+            <input class="form-check-input" type="checkbox" name= "singleOrigin" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="coffee.singleOrigin" checked>
+            <label class="label" for="flexSwitchCheckChecked"> Single Origin</label>
+        </div>
+
+    </div>
+
+    <br>
+
+    <br>
+
+    <div class="grindSize">
+        <div>
+            <label class="label" for="grind" >Grind: </label>
+            <span>{{coffee.grind}}</span>
+            <input type="range" name= "grind" class="form-range" min="1" max="10" id="grind" [(ngModel)]="coffee.grind">
+        </div>
+
+        <div>
+            <label class="label">Size </label>
+            <input type="number" name="size" id="size" [(ngModel)]="coffee.size" required>
+        </div>
+    </div>
+
+    <br>
+
+    <br>
+
+    <label class="label">Variety </label>
+    <input type="text" name="variety" [(ngModel)]="coffee.variety" required #variety="ngModel">
+    <div *ngIf="variety.invalid && (variety.dirty || variety.touched)" class="error">
+        Variety is required.
+      </div>
+    
+    <br>
+
+    <div class="TastingNotes">
+        <label class="label" for="TastingNotes" >Tasting Notes</label>
+        <textarea class="form-control" name="tastingNotes" id="tastingNotes" rows="3" placeholder="Tasting notes or “flavor notes” are a taster's written description about the aroma, taste, and character of a coffee." [(ngModel)]="coffee.tastingNotes"></textarea>
+    </div>
+ 
+    <div class="buttons">
+        <button type="submit" [disabled]="coffeeDetailForm.form.invalid" name="Submit">Submit</button>
+        <button type="button" name="Reset" (click)="coffeeDetailForm.resetForm()">Reset</button>
+    </div>
+
+
+
+  </form>
+    
