@@ -19,9 +19,6 @@ export class AppComponent {
 
 
   title = 'angular-capstone';
-<<<<<<< HEAD
-}
-=======
+
   protected readonly routerStates = routerStates;
 }
->>>>>>> origin/coffee-detail
