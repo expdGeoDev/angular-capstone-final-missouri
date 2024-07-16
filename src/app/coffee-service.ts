@@ -23,8 +23,7 @@ export class CoffeeService {
   }
 
   getAll() : Observable<Coffee[]>{
-    return this.http.get<Coffee[]>(this.apiUrl)
-
+    return this.http.get<Coffee[]>(this.apiUrl + '/?active=true')
   }
   getById(id:string) : Observable<Coffee[]>{
     return this.http.get<Coffee[]>(this.apiUrl+'/'+id)
