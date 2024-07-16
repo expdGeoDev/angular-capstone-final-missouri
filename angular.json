@@ -62,7 +62,8 @@
               "buildTarget": "angular-capstone:build:production"
             },
             "development": {
-              "buildTarget": "angular-capstone:build:development"
+              "buildTarget": "angular-capstone:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

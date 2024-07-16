@@ -1,0 +1,36 @@
+<div class="d-flex">
+    <div class="p-2 flex-fill">
+        <div class="d-flex justify-content-start">
+            <button type="button" class="btn btn-primary">+ New Order</button>
+        </div>
+    </div>
+    <div class="p-2 flex-fill"></div>
+    <div class="p-2 flex-fill">
+        <label>Filters: </label>
+        <input type="text" placeholder="Search by Roaster">
+        <label class="form-check-label" for="activeCheck">Active: </label>
+        <input type="checkbox" class="form-check-input" id="activeCheck">
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Roaster</th>
+            <th scope="col">Roast</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let coffee of getFiltered()">
+            <th scope="row">{{coffee.id}}</th>
+            <td>{{coffee.roaster}}</td>
+            <td>{{coffee.roast}}</td>
+            <td>
+                <i>Edit</i>
+            </td>
+        </tr>
+    </tbody>
+</table>
