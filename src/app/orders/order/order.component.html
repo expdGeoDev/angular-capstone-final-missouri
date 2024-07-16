@@ -24,7 +24,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let coffee of getFiltered()">
+        <tr *ngFor="let coffee of coffees | async as value">
             <th scope="row">{{coffee.id}}</th>
             <td>{{coffee.roaster}}</td>
             <td>{{coffee.roast}}</td>

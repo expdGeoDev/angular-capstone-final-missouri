@@ -2,16 +2,19 @@ import { Component } from '@angular/core';
 import { CoffeeService } from '../../coffee-service';
 import { Coffee, FormatType, RoastType } from '../../model/coffee';
 import { NgFor } from '@angular/common';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, CommonModule, FormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
 export class OrderComponent {
-  orders: Coffee[] = [];
+  coffees? : Observable<Coffee[]> ;
   filter: string = '';
 
   constructor(
@@ -19,15 +22,15 @@ export class OrderComponent {
   ) { }
 
   ngOnInit() {
-    this.coffeeSvc.getAll().subscribe(orders => {
-      this.orders = orders;
-      console.table(orders);
-    });
+    this.coffees = this.coffeeSvc.getAll();
   }
 
   getFiltered() {
-    return this.filter === ''
-      ? this.orders
-      : this.orders.filter((order) => order.roaster === this.filter);
+    // this.coffees?.subscribe(order => {
+    // return this.filter === ''
+    //   ? this.coffees
+    //   : this.coffees.pipe((order) => order.roaster === this.filter)
+    // });
+    return this.coffees;
   }
 }

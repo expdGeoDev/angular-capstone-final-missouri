@@ -1,12 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CoffeeService } from './coffee-service';
+import { HttpClient } from '@angular/common/http';
 
-describe('CoffeeServiceService', () => {
+describe('CoffeeService', () => {
   let service: CoffeeService;
+  let mockHttpClient : jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    mockHttpClient = jasmine.createSpyObj(['get', 'post'])
+    TestBed.configureTestingModule({providers:[{
+      provide : HttpClient, useValue: mockHttpClient}
+    ]});
     service = TestBed.inject(CoffeeService);
   });
 
