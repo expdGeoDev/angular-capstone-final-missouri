@@ -16,20 +16,20 @@ export class CoffeeDetailComponent {
 
   constructor(private coffeeSvc : CoffeeService){};
 
-  roastOptions : RoastType[] = ['dark','light','medium','medium-dark']
-  formatOptions : FormatType[] = ['beans','ground','k-pod'] 
+  roastOptions : RoastType[] = ['Light','Medium','Medium-dark', 'Dark']
+  formatOptions : FormatType[] = ['Beans','Ground','K-pod'] 
   coffee: Coffee = {
-      "id": 845,
+      "id": 0,
 			"active": true,
-			"roaster": "Counter Culture",
+			"roaster": '',
 			"variety": '',
 			"size": 24,
-			"roast": "dark",
-			"format": "k-pod",
-			"grind": 8,
-			"origin": ['Brasil'],
-			"singleOrigin": true,
-			"tastingNotes": "test"
+			"roast": this.roastOptions[0],
+			"format": this.formatOptions[0],
+			"grind": 1,
+			"origin": [''],
+			"singleOrigin": false,
+			"tastingNotes": ""
   }
 
   public saveCoffee(coffee:Coffee){
