@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from './navbar.component';
 import { UIRouterModule } from '@uirouter/angular';
-import {routerStates} from './app.routes'
+import {appRouting} from './app.routing'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CoffeeDetailComponent } from './coffee-detail/coffee-detail.component';
 
 
 @Component({
@@ -12,7 +10,7 @@ import { CoffeeDetailComponent } from './coffee-detail/coffee-detail.component';
   standalone: true,
 
   templateUrl: './app.component.html',
-  imports: [NavbarComponent, UIRouterModule, CommonModule, FormsModule],
+  imports: [UIRouterModule, CommonModule, FormsModule],
   styleUrl: './app.component.css',
 })
 export class AppComponent {
@@ -20,5 +18,5 @@ export class AppComponent {
 
   title = 'angular-capstone';
 
-  protected readonly routerStates = routerStates;
+  protected readonly routerStates = appRouting;
 }

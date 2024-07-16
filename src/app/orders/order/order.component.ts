@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { OrderService } from './order.service';
-import { Coffee } from '../../model/Coffee';
+import { CoffeeService } from '../../coffee-service';
+import { Coffee, FormatType, RoastType } from '../../model/coffee';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -15,11 +15,11 @@ export class OrderComponent {
   filter: string = '';
 
   constructor(
-    private orderService: OrderService
+    private coffeeSvc: CoffeeService
   ) { }
 
   ngOnInit() {
-    this.orderService.getOrders().subscribe(orders => {
+    this.coffeeSvc.getAll().subscribe(orders => {
       this.orders = orders;
       console.table(orders);
     });
