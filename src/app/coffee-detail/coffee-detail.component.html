@@ -54,23 +54,28 @@
             <input type="range" name= "grind" class="form-range" min="1" max="10" id="grind" [(ngModel)]="coffee.grind">
         </div>
 
-        <div>
-            <label class="label">Size </label>
-            <input type="number" name="size" id="size" [(ngModel)]="coffee.size" required>
-        </div>
+        
+
     </div>
 
+
+    <div>
+        <label class="label">Size </label>
+        <input type="number" name="size" id="size" [(ngModel)]="coffee.size" required>
+    </div>
     <br>
 
-    <br>
 
-    <label class="label">Variety </label>
-    <input type="text" name="variety" [(ngModel)]="coffee.variety" required #variety="ngModel">
-    <div *ngIf="variety.invalid && (variety.dirty || variety.touched)" class="error">
-        Variety is required.
-      </div>
-    
-    <br>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked [(ngModel)]="coffee.variety"> Arabica</label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="option2" autocomplete="off" [(ngModel)]="coffee.variety"> Robusta </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="option3" autocomplete="off" [(ngModel)]="coffee.variety"> Excelsa</label>
+        <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" autocomplete="off" [(ngModel)]="coffee.variety"> Liberica</label>
+    </div>
 
     <div class="TastingNotes">
         <label class="label" for="TastingNotes" >Tasting Notes</label>
@@ -78,11 +83,10 @@
     </div>
  
     <div class="buttons">
-        <button type="submit" [disabled]="coffeeDetailForm.form.invalid" name="Submit">Submit</button>
-        <button type="button" name="Reset" (click)="coffeeDetailForm.resetForm()">Reset</button>
+        <button type="submit"  [disabled]="coffeeDetailForm.form.invalid" name="submit" id="submit">Submit</button>
+        <button type="button" name="reset" (click)="coffeeDetailForm.resetForm()" id="reset">Reset</button>
     </div>
 
-
-
+    
   </form>
     
