@@ -1,4 +1,4 @@
-<main class="container-fluid">
+<!-- 
 	<header class="row">
 		<div class="col">
 			<h1>Angular Demos</h1>
@@ -7,19 +7,17 @@
 	</header>
 	<div class="row">
 		<div class="col-3">
-			<ul class="list-unstyled">
-				<li *ngFor="let route of routerStates">
-					<a
-						[uiSref]="route.name"
-						uiSrefActive="active"
-					>
-						{{ route.label }}
-					</a>
-				</li>
-			</ul>
+
 		</div>
 		<div class="col">
-			<ui-view></ui-view>
+			
 		</div>
 	</div>
-</main>
+</main> -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<div>
+		<a  class="navbar-brand"  uiSref="coffee-detail" uiSrefActive="active"> 	Create Coffee</a>
+		<a  class="navbar-brand"  uiSref="coffee-svc-test" uiSrefActive="active"> 	Coffee List</a>
+	</div>
+</nav>
+<ui-view></ui-view>

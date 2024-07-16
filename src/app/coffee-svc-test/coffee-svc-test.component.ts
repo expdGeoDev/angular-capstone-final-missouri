@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {CoffeeService} from '../coffee-service'
 import { Coffee } from '../model/coffee';
 import { Observable } from 'rxjs';
@@ -14,12 +14,11 @@ import { FormsModule } from '@angular/forms';
 export class CoffeeSvcTestComponent {
 
     coffees? : Observable<Coffee[]>;
-    constructor(private coffeeSvc : CoffeeService){
+    coffeeSvc = inject(CoffeeService)
 
-    }
 
     ngOnInit(){
-     this.coffees = this.coffeeSvc.getAll().pipe();
+     this.coffees = this.coffeeSvc.getAll();
     //  .subscribe(coffeess => {
     //     console.log(coffeess)
     //   });
