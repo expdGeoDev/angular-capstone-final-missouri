@@ -1,0 +1,5 @@
+<div *ngIf="message" class="alert" [ngClass]="cssClass">
+    {{ message }}
+    <button type="button" class="close" (click)="clear()">&times;</button>
+  </div>
+  
