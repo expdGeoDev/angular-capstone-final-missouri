@@ -38,6 +38,7 @@ export class CoffeeService {
       map(coffees => coffees[coffees.length - 1])
     );
   }
+  
   addCoffee(coffee: Coffee): Observable<Coffee> {
     return this.getLastCoffee().pipe(
       map(lastCoffee => {
@@ -52,12 +53,10 @@ export class CoffeeService {
 
   updateCoffee(coffee:Coffee){
     this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
-    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
   }
 
   deleteCoffee(coffee:Coffee) {
     coffee.active = false;
-    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
     this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
   }
 
