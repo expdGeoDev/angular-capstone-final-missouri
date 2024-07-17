@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Coffee, FormatType, RoastType } from '../model/coffee';
+import { Coffee, FormatType, RoastType, VarietyType } from '../model/coffee';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CoffeeService } from '../coffee-service';
@@ -19,11 +19,13 @@ export class CoffeeDetailComponent {
 
   roastOptions : RoastType[] = ['Light','Medium','Medium-dark', 'Dark']
   formatOptions : FormatType[] = ['Beans','Ground','K-pod'] 
+  varietyOptions : VarietyType [] = ['Arabica', 'Robusta', 'Excelsa', 'Liberica'];
+
   coffee: Coffee = {
       "id": 0,
 			"active": true,
-			"roaster": '',
-			"variety": '',
+			"roaster": 'bye',
+			"variety": this.varietyOptions[1],
 			"size": 24,
 			"roast": this.roastOptions[0],
 			"format": this.formatOptions[0],
@@ -40,3 +42,4 @@ export class CoffeeDetailComponent {
     })
   }
 }
+

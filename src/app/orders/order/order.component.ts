@@ -2,11 +2,12 @@ import { Component, inject} from '@angular/core';
 import { CoffeeService } from '../../coffee-service';
 import { Coffee, FormatType, RoastType } from '../../model/coffee';
 import { NgFor } from '@angular/common';
+import { UIRouterModule } from '@uirouter/angular';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, UIRouterModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
