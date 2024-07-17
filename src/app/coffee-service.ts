@@ -25,9 +25,10 @@ export class CoffeeService {
     return this.http.get<Coffee[]>(this.rootUrl + '/?active=true')
   }
 
-  getById(id:string) : Observable<Coffee[]>{
-    return this.http.get<Coffee[]>(this.rootUrl+'/'+id)
+  getById(id:number) : Observable<Coffee>{
+    return this.http.get<Coffee>(this.rootUrl+'/'+id)
   }
+
 
   addCoffee(coffee:Coffee):Observable<Coffee>{
     return this.http.post<Coffee>(this.rootUrl, coffee)

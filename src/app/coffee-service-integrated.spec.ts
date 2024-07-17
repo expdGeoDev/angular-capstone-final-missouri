@@ -1,0 +1,33 @@
+import { TestBed } from "@angular/core/testing";
+import { CoffeeService } from "./coffee-service";
+import {HttpClientTestingModule, HttpTestingController}from "@angular/common/http/testing"
+describe('Coffee Service Integrated Test', () =>{
+
+    let httpTestController : HttpTestingController;
+    let coffeSvc : CoffeeService;
+    
+    beforeEach(() =>{
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
+            providers:[CoffeeService]
+        })
+
+        httpTestController = TestBed.inject(HttpTestingController);
+        coffeSvc = TestBed.inject(CoffeeService);
+    });
+
+    describe('getCoffeeById', () =>{
+        it('should call get with the correct URL', () =>{
+            coffeSvc.getById(1).subscribe(coffee => {
+                expect((coffee.id).toString()).toBe('1');
+                expect(coffee.roaster).toBe("Tim Horton's");
+            });
+
+            const req = httpTestController.expectOne('http://localhost:8100/coffees/1');
+            req.flush({id:'1', roaster: "Tim Horton's"});
+            
+            expect(req.request.method).toBe('GET');
+            httpTestController.verify();
+        });
+    })
+})
