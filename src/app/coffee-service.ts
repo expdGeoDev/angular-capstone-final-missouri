@@ -4,6 +4,7 @@ import { Coffee } from './model/coffee';
 import { Observable } from 'rxjs';
 import * as config from '../assets/config.json'
 
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,16 +23,27 @@ export class CoffeeService {
   }
 
   getAll() : Observable<Coffee[]>{
-    return this.http.get<Coffee[]>(this.rootUrl + '/?active=true')
+    return this.http.get<Coffee[]>(this.apiUrl + '/?active=true')
   }
 
   getById(id:number) : Observable<Coffee>{
     return this.http.get<Coffee>(this.rootUrl+'/'+id)
   }
 
-
-  addCoffee(coffee:Coffee):Observable<Coffee>{
-    return this.http.post<Coffee>(this.rootUrl, coffee)
+  getLastCoffee(): Observable<Coffee> {
+    return this.getAll().pipe(
+      map(coffees => coffees[coffees.length - 1])
+    );
+  }
+  addCoffee(coffee: Coffee): Observable<Coffee> {
+    return this.getLastCoffee().pipe(
+      map(lastCoffee => {
+        const newId = lastCoffee ? Math.floor(lastCoffee.id) + 1 : 1;
+        coffee.id = newId;
+        return coffee;
+      }),
+      switchMap(newCoffee => this.http.post<Coffee>(this.apiUrl, newCoffee))
+    );
   }
 
   updateCoffee(coffee:Coffee){

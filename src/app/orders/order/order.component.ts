@@ -2,6 +2,7 @@ import { Component, inject} from '@angular/core';
 import { CoffeeService } from '../../coffee-service';
 import { Coffee, FormatType, RoastType } from '../../model/coffee';
 import { NgFor } from '@angular/common';
+import { UIRouterModule } from '@uirouter/angular';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor, CommonModule, FormsModule],
+  imports: [NgFor],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
@@ -25,18 +26,17 @@ export class OrderComponent {
     this.loadPage();
   }
   loadPage(){
-    this.coffees = this.coffeeSvc.getAll();
-    
+    this.coffeeSvc.getActives().subscribe(orders => {
+      this.orders = orders;
+    });
   }
 
-  
-
   getFiltered() {
-    // this.coffees?.subscribe(order => {
-    // return this.filter === ''
-    //   ? this.coffees
-    //   : this.coffees.pipe((order) => order.roaster === this.filter)
-    // });
+    this.coffees?.subscribe(order => {
+    return this.filter === ''
+      ? this.coffees
+      : this.coffees.pipe((order) => order.roaster === this.filter)
+    });
     return this.coffees;
   }
   deleteCoffe(coffee : Coffee){
