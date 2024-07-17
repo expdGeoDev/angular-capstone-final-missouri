@@ -22,12 +22,10 @@ export class OrderComponent {
     this.loadPage();
   }
   loadPage(){
-    this.coffeeSvc.getAll().subscribe(orders => {
+    this.coffeeSvc.getActives().subscribe(orders => {
       this.orders = orders;
     });
   }
-
-  
 
   getFiltered() {
     return this.filter === ''
