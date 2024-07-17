@@ -23,7 +23,7 @@ export class CoffeeDetailComponent {
   coffee: Coffee = {
       "id": 0,
 			"active": true,
-			"roaster": '',
+			"roaster": 'bye',
 			"variety": this.varietyOptions[1],
 			"size": 24,
 			"roast": this.roastOptions[0],
