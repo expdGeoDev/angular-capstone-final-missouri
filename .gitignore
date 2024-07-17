@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 src/data/coffee-data.json
 src/data/coffee-data.json
+package-lock.json

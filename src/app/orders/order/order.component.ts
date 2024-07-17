@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { CoffeeService } from '../../coffee-service';
 import { Coffee, FormatType, RoastType } from '../../model/coffee';
 import { NgFor } from '@angular/common';
@@ -14,14 +14,16 @@ export class OrderComponent {
   orders: Coffee[] = [];
   filter: string = '';
 
-  constructor(
-    private coffeeSvc: CoffeeService
-  ) { }
+  constructor( ) { }
+  coffeeSvc = inject(CoffeeService);
+
 
   ngOnInit() {
-    this.coffeeSvc.getAll().subscribe(orders => {
+    this.loadPage();
+  }
+  loadPage(){
+    this.coffeeSvc.getActives().subscribe(orders => {
       this.orders = orders;
-      console.table(orders);
     });
   }
 
@@ -29,5 +31,13 @@ export class OrderComponent {
     return this.filter === ''
       ? this.orders
       : this.orders.filter((order) => order.roaster === this.filter);
+  }
+  deleteCoffe(coffee : Coffee){
+    this.coffeeSvc.deleteCoffee(coffee);
+    this.loadPage();
+  }
+  updateCoffe(coffee : Coffee){
+    this.coffeeSvc.updateCoffee(coffee);
+    this.loadPage();
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Coffee } from './model/coffee';
 import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,20 +18,41 @@ export class CoffeeService {
     this.http.get<any>('assets/config.json').subscribe(
       config => {
         this.apiUrl = config.apiUrl;
-        console.log(config);
       }
     );
   }
 
   getAll() : Observable<Coffee[]>{
     return this.http.get<Coffee[]>(this.apiUrl)
-
+  }
+  getActives() : Observable<Coffee[]>{
+    return this.http.get<Coffee[]>(this.apiUrl + '/?active=true')
   }
   getById(id:string) : Observable<Coffee[]>{
     return this.http.get<Coffee[]>(this.apiUrl+'/'+id)
   }
-  addCoffee(coffee:Coffee):Observable<Coffee>{
-    return this.http.post<Coffee>(this.apiUrl, coffee)
+
+  getLastCoffee(): Observable<Coffee> {
+    return this.getAll().pipe(
+      map(coffees => coffees[coffees.length - 1])
+    );
+  }
+  addCoffee(coffee: Coffee): Observable<Coffee> {
+    return this.getLastCoffee().pipe(
+      map(lastCoffee => {
+        const newId = lastCoffee ? Math.floor(lastCoffee.id) + 1 : 1;
+        coffee.id = newId;
+        return coffee;
+      }),
+      switchMap(newCoffee => this.http.post<Coffee>(this.apiUrl, newCoffee))
+    );
+  }
+  updateCoffee(coffee:Coffee){
+    this.http.put<Coffee>(this.apiUrl + '/' + coffee.id, coffee).subscribe();
+  }
+  deleteCoffee(coffee:Coffee) {
+    coffee.active = false;
+    this.http.put<Coffee>(this.apiUrl + '/' + coffee.id, coffee).subscribe();
   }
 }
 
