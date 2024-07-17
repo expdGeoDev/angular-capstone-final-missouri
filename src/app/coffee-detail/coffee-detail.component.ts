@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { any, Transition } from '@uirouter/angular';
 import { Coffee, FormatType, RoastType, VarietyType } from '../model/coffee';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,32 +15,52 @@ import { AlertMessageService } from '../alert-message.service';
   styleUrl: './coffee-detail.component.css'
 })
 export class CoffeeDetailComponent {
+  coffeeInput : Coffee;
+  coffee : Coffee;
+  constructor(private coffeeSvc : CoffeeService, private alertService: AlertMessageService, private transition: Transition){
+    this.coffeeInput = this.transition.params()['data'];
 
-  constructor(private coffeeSvc : CoffeeService, private alertService: AlertMessageService){};
-
+  };
   roastOptions : RoastType[] = ['Light','Medium','Medium-dark', 'Dark']
   formatOptions : FormatType[] = ['Beans','Ground','K-pod'] 
   varietyOptions : VarietyType [] = ['Arabica', 'Robusta', 'Excelsa', 'Liberica'];
-
-  coffee: Coffee = {
+  
+  ngOnInit() {
+    if (this.coffeeInput.id>0){
+      this.coffee = this.coffeeInput;
+    }
+    else{
+      this.loadEmptyCoffee();
+    }
+  }  
+  loadEmptyCoffee(){
+    this.coffee = {
       "id": 0,
-			"active": true,
-			"roaster": 'bye',
-			"variety": this.varietyOptions[0],
-			"size": 24,
-			"roast": this.roastOptions[0],
-			"format": this.formatOptions[0],
-			"grind": 1,
-			"origin": [''],
-			"singleOrigin": false,
-			"tastingNotes": ""
+      "active": true,
+      "roaster": 'bye',
+      "variety": this.varietyOptions[0],
+      "size": 24,
+      "roast": this.roastOptions[0],
+      "format": this.formatOptions[0],
+      "grind": 1,
+      "origin": [''],
+      "singleOrigin": false,
+      "tastingNotes": ""
+    }
   }
-
+  
   public saveCoffee(coffee:Coffee){
-    this.coffeeSvc.addCoffee(coffee).subscribe(newCoffee =>{
-      console.log('New Coffee Added' + newCoffee);
-      this.alertService.success('Coffee added successfully!');
-    })
+    console.log(coffee);
+    if (coffee.id != 0){
+        this.coffeeSvc.updateCoffee(coffee);
+        console.log('Coffee Updated' + coffee);
+        this.alertService.success('Coffee updated successfully!');
+      }else{
+      this.coffeeSvc.addCoffee(coffee).subscribe(newCoffee =>{
+        console.log('New Coffee Added' + newCoffee);
+        this.alertService.success('Coffee added successfully!');
+      })
+    }
   }
 }
 
