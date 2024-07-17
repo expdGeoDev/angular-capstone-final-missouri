@@ -65,7 +65,7 @@ h1{
     display:grid;
     grid-template-columns:3fr 3fr;
     grid-gap: 15px; 
-    margin-botton: 20px;
+    margin-bottom: 20px;
 }
 
 #grind {

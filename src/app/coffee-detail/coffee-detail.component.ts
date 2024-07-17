@@ -24,7 +24,7 @@ export class CoffeeDetailComponent {
       "id": 0,
 			"active": true,
 			"roaster": 'bye',
-			"variety": this.varietyOptions[1],
+			"variety": this.varietyOptions[0],
 			"size": 24,
 			"roast": this.roastOptions[0],
 			"format": this.formatOptions[0],
