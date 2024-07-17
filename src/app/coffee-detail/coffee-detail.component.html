@@ -63,16 +63,16 @@
     <br>
 
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group" > 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"  checked >
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"   value="Arabica" required [(ngModel)]="coffee.variety">
         <label class="btn btn-outline-primary" for="btnradio1">Arabica</label>
       
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"  >
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"  value="Robusta" required [(ngModel)]="coffee.variety">
         <label class="btn btn-outline-primary" for="btnradio2">Robusta</label>
       
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"  >
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"  value="Excelsa" required [(ngModel)]="coffee.variety">
         <label class="btn btn-outline-primary" for="btnradio3">Excelsa</label>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"  >
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"  value="Liberica" required [(ngModel)]="coffee.variety">
         <label class="btn btn-outline-primary" for="btnradio4">Liberica</label>
       </div>
 
