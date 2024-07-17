@@ -1,23 +1,28 @@
 <form class="border mt-2">
     <div class="row mb-2 m-2">
         <div class="col mt-3">
-            <button type="button" class="btn btn-primary">+ New Order</button>
+            <button type="button" class="btn btn-primary">New Order</button>
         </div>
+        <!--  -->
         <div class="col">
             <label for="txtRoaster">Filter by Roaster</label>
-            <input id="txtRoaster" type="text" class="form-control">
+            <input id="txtRoaster" type="text" class="form-control" [(ngModel)]="filterFields.roaster" name="txtRoaster"
+                (keyup)="getFiltered()">
         </div>
         <div class="col">
             <label for="txtSize">Filter by Size</label>
-            <input id="txtSize" type="text" class="form-control">
+            <input id="txtSize" type="number" class="form-control" [(ngModel)]="filterFields.size" name="txtSize"
+                (keyup)="getFiltered()">
         </div>
         <div class="col">
             <label for="txtRoast">Filter by Roast</label>
-            <input id="txtRoast" type="text" class="form-control">
+            <input id="txtRoast" type="text" class="form-control" [(ngModel)]="filterFields.roast" name="txtRoast"
+                (keyup)="getFiltered()">
         </div>
         <div class="col">
             <label for="txtFormat">Filter by Format</label>
-            <input id="txtFormat" type="text" class="form-control">
+            <input id="txtFormat" type="text" class="form-control" [(ngModel)]="filterFields.format" name="txtFormat"
+                (keyup)="getFiltered()">
         </div>
     </div>
 </form>
@@ -41,7 +46,14 @@
             <td>{{coffee.roast}}</td>
             <td>{{coffee.format}}</td>
             <td>
-                <i>Edit</i>
+                <button type="button" class="btn btn-default" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Edit">
+                    <img src="/assets/edit.svg" alt="Bootstrap" width="20" height="20">
+                </button>
+                <button type="button" class="btn btn-default" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Delete">
+                    <img src="/assets/delete.svg" alt="Bootstrap" width="20" height="20">
+                </button>
             </td>
         </tr>
     </tbody>
