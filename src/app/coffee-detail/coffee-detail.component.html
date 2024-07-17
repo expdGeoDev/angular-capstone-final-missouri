@@ -54,15 +54,14 @@
             <input type="range" name= "grind" class="form-range" min="1" max="10" id="grind" [(ngModel)]="coffee.grind">
         </div>
 
-        
-
+        <div>
+            <label class="label">Size </label>
+            <input type="number" name="size" id="size" [(ngModel)]="coffee.size" required>
+        </div> 
     </div>
 
 
-    <div>
-        <label class="label">Size </label>
-        <input type="number" name="size" id="size" [(ngModel)]="coffee.size" required>
-    </div>
+
     <br>
 
 
@@ -74,7 +73,7 @@
         <label class="btn btn-secondary">
           <input type="radio" name="options" id="option3" autocomplete="off" [(ngModel)]="coffee.variety"> Excelsa</label>
         <label class="btn btn-secondary">
-            <input type="radio" name="options" id="option3" autocomplete="off" [(ngModel)]="coffee.variety"> Liberica</label>
+            <input type="radio" name="options" id="option4" autocomplete="off" [(ngModel)]="coffee.variety"> Liberica</label>
     </div>
 
     <div class="TastingNotes">
@@ -83,10 +82,10 @@
     </div>
  
     <div class="buttons">
-        <button type="submit"  [disabled]="coffeeDetailForm.form.invalid" name="submit" id="submit">Submit</button>
         <button type="button" name="reset" (click)="coffeeDetailForm.resetForm()" id="reset">Reset</button>
+        <button type="submit"  [disabled]="coffeeDetailForm.form.invalid" name="submit" id="submit">Submit</button>
     </div>
 
-    
+   
   </form>
     
