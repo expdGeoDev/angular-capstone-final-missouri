@@ -10,7 +10,7 @@ import { Coffee } from '../../model/coffee';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor, UIRouterModule],
+  imports: [NgFor, UIRouterModule, CommonModule, FormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })

@@ -27,11 +27,24 @@ describe('CoffeeService Unit Test', () => {
       coffeeTest = coffee;
       expect(coffeeTest.roaster).toBe("Tim Horton's");
       done()
-    });
+    })
+  })
 
-    // expect(coffeeTest.roaster).toBe()
+  it('getActives should not contain coffee with active equals false', (done) =>{
+    service.getActives().subscribe(coffees => {
+      let inactiveCount = coffees.filter(c => c.active === false).length;
+      expect(inactiveCount).toBe(0)
+      done()
+    })
+  })
 
 
-
+  
+  it('Last id attribute is equal to data size', (done) =>{
+    service.getAll().subscribe(coffees => {
+      let allCount = coffees.length;
+      expect(allCount).toBe(service.lastId)
+      done()
+    })
   })
 });

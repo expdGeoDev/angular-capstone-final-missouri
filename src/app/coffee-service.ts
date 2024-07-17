@@ -13,11 +13,13 @@ import { map, switchMap } from 'rxjs/operators';
 export class CoffeeService {
   private rootUrl: string  = '';
   data : any = config
+  lastId : number = 0;
 
   constructor(private http: HttpClient) {
     this.loadConfig();
-    console.log(config)
-    console.log(config)
+    this.getAll().subscribe( list =>{
+      this.lastId = list.length++;
+    })
   }
 
 
@@ -26,6 +28,9 @@ export class CoffeeService {
   }
 
   getAll() : Observable<Coffee[]>{
+    return this.http.get<Coffee[]>(this.rootUrl)
+  }
+  getActives() : Observable<Coffee[]>{
     return this.http.get<Coffee[]>(this.rootUrl + '/?active=true')
   }
 
@@ -40,16 +45,9 @@ export class CoffeeService {
   }
   
   addCoffee(coffee: Coffee): Observable<Coffee> {
-    return this.getLastCoffee().pipe(
-      map(lastCoffee => {
-        const newId = lastCoffee ? Math.floor(lastCoffee.id) + 1 : 1;
-        coffee.id = newId;
-        return coffee;
-      }),
-      switchMap(newCoffee => this.http.post<Coffee>(this.rootUrl, newCoffee))
-
-    );
-  }
+    coffee.id = this.lastId++;
+    return this.http.post<Coffee>(this.rootUrl, coffee);
+  } 
 
   updateCoffee(coffee:Coffee){
     this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
