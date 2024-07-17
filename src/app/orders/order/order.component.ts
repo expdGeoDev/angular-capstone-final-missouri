@@ -16,8 +16,12 @@ export class OrderComponent implements OnInit {
   orders: Coffee[] = [];
   filterFields = { roaster: '', size: '', roast: '', format: '' };
 
-  constructor( ) { }
-  coffeeSvc = inject(CoffeeService);
+
+
+  constructor(private coffeeSvc : CoffeeService ) {
+    this.loadPage();
+   }
+  
 
 
   ngOnInit() {
