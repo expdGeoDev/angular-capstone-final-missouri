@@ -1,23 +1,23 @@
-import { Component, inject} from '@angular/core';
-import { CoffeeService } from '../../coffee-service';
-import { Coffee, FormatType, RoastType } from '../../model/coffee';
+import { Component, OnInit, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { UIRouterModule } from '@uirouter/angular';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CoffeeService } from '../../coffee-service';
+import { Coffee } from '../../model/coffee';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor, CommonModule, FormsModule, UIRouterModule],
+  imports: [NgFor, UIRouterModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
-export class OrderComponent {
-  coffees? : Observable<Coffee[]> ;
+export class OrderComponent implements OnInit{
+  coffees : Coffee[] = [];
   filter: string = '';
-
+  filterFields = { roaster: '', size: '', roast: '', format: '' };
   constructor( ) { }
   coffeeSvc = inject(CoffeeService);
 
@@ -26,19 +26,46 @@ export class OrderComponent {
     this.loadPage();
   }
   loadPage(){
-    this.coffees = this.coffeeSvc.getAll()
-    // .subscribe(orders => {
-    //    = orders;
-    // });
+    this.coffeeSvc.getAll()
+    .subscribe(orders => {
+       this.coffees = orders;
+    });
   }
 
   getFiltered() {
-    // this.coffees?.subscribe(order => {
-    // return this.filter === ''
-    //   ? this.coffees
-    //   : this.coffees.pipe((order) => order.roaster === this.filter)
-    // });
-    return this.coffees;
+    console.log(this.filterFields.roaster,
+      this.filterFields.size,
+      this.filterFields.roast,
+      this.filterFields.format
+    );
+
+    if (
+      this.filterFields.roaster === ''
+      && Number(this.filterFields.size) === 0
+      && this.filterFields.roast.toString() === ''
+      && this.filterFields.format.toString() === ''
+    ) {
+      return this.coffees;
+    }
+    else {
+      return this.coffees
+        .filter((order) =>
+          this.filterFields.roaster != '' ? order.roaster.toLocaleLowerCase().includes(this.filterFields.roaster.toLocaleLowerCase()) : order.roaster
+        )
+        .filter((order) =>
+          Number(this.filterFields.size) != 0 ? order.size.toString().includes(this.filterFields.size) : order.size
+        )
+        .filter((order) =>
+          this.filterFields.roast.toString() != '' ? order.roast?.toString().toLocaleLowerCase().includes(this.filterFields.roast.toString().toLocaleLowerCase()) : order.roast
+        )
+        .filter((order) =>
+          this.filterFields.format.toString() != '' ? order.format?.toString().toLocaleLowerCase().includes(this.filterFields.format.toString().toLocaleLowerCase()) : order.format
+        );
+    }
+  }
+
+  tableAction(action: string) {
+    console.log("Table Action: " + action)
   }
   deleteCoffe(coffee : Coffee){
     this.coffeeSvc.deleteCoffee(coffee);
@@ -48,4 +75,5 @@ export class OrderComponent {
     this.coffeeSvc.updateCoffee(coffee);
     this.loadPage();
   }
+
 }

@@ -6,6 +6,7 @@ import * as config from '../assets/config.json'
 
 import { map, switchMap } from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,9 @@ export class CoffeeService {
   constructor(private http: HttpClient) {
     this.loadConfig();
     console.log(config)
+    console.log(config)
   }
+
 
   private loadConfig(){
     this.rootUrl = this.data['apiUrl'];
@@ -43,15 +46,18 @@ export class CoffeeService {
         return coffee;
       }),
       switchMap(newCoffee => this.http.post<Coffee>(this.rootUrl, newCoffee))
+
     );
   }
 
   updateCoffee(coffee:Coffee){
     this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
+    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
   }
 
   deleteCoffee(coffee:Coffee) {
     coffee.active = false;
+    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
     this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
   }
 
