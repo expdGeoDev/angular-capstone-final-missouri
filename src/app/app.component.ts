@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { UIRouterModule } from '@uirouter/angular';
 import {appRouting} from './app.routing'
-import { CommonModule } from '@angular/common';
+import { Subject, Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { AlertMessageComponent } from "./alert-message/alert-message.component";
 
 
 @Component({
@@ -10,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
 
   templateUrl: './app.component.html',
-  imports: [UIRouterModule, CommonModule, FormsModule],
+  imports: [UIRouterModule, FormsModule, AlertMessageComponent],
   styleUrl: './app.component.css',
 })
 export class AppComponent {
