@@ -66,7 +66,6 @@ export class OrderComponent implements OnInit {
   }
 
   tableAction(action: string) {
-    console.log("Table Action: " + action)
   }
   deleteCoffe(coffee : Coffee){
     this.coffeeSvc.deleteCoffee(coffee);
