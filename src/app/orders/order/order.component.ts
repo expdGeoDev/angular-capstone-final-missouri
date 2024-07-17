@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, CommonModule, FormsModule, UIRouterModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
@@ -26,17 +26,18 @@ export class OrderComponent {
     this.loadPage();
   }
   loadPage(){
-    this.coffeeSvc.getActives().subscribe(orders => {
-      this.orders = orders;
-    });
+    this.coffees = this.coffeeSvc.getAll()
+    // .subscribe(orders => {
+    //    = orders;
+    // });
   }
 
   getFiltered() {
-    this.coffees?.subscribe(order => {
-    return this.filter === ''
-      ? this.coffees
-      : this.coffees.pipe((order) => order.roaster === this.filter)
-    });
+    // this.coffees?.subscribe(order => {
+    // return this.filter === ''
+    //   ? this.coffees
+    //   : this.coffees.pipe((order) => order.roaster === this.filter)
+    // });
     return this.coffees;
   }
   deleteCoffe(coffee : Coffee){

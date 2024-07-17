@@ -23,7 +23,7 @@ export class CoffeeService {
   }
 
   getAll() : Observable<Coffee[]>{
-    return this.http.get<Coffee[]>(this.apiUrl + '/?active=true')
+    return this.http.get<Coffee[]>(this.rootUrl + '/?active=true')
   }
 
   getById(id:number) : Observable<Coffee>{
@@ -42,7 +42,7 @@ export class CoffeeService {
         coffee.id = newId;
         return coffee;
       }),
-      switchMap(newCoffee => this.http.post<Coffee>(this.apiUrl, newCoffee))
+      switchMap(newCoffee => this.http.post<Coffee>(this.rootUrl, newCoffee))
     );
   }
 
