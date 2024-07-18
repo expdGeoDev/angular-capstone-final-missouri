@@ -130,25 +130,27 @@ input[type="range"]::-webkit-slider-runnable-track{
 
 
 #submit {
-    background-color:#2b2b2e;
-    color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-    color: white;
     font-size: 20px;
     width: 80px;
 }
 
 #reset {
-    background-color:#2b2b2e;
+    background-color: black;
     color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-    color: white;
     font-size: 20px;
     width: 80px;
 }
 
 button:disabled {
-    background-color: green;
+    background-color: rgb(90, 90, 90);
+    color:rgb(207, 207, 207);
+ }
+
+ button:enabled {
+    background-color: black;
+    color: white;
  }
