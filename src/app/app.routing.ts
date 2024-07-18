@@ -1,7 +1,5 @@
-import { Ng2StateDeclaration, Transition } from '@uirouter/angular';
 import { OrderComponent } from './orders/order/order.component';
 import { CoffeeDetailComponent } from "./coffee-detail/coffee-detail.component";
-import { CoffeeSvcTestComponent } from "./coffee-svc-test/coffee-svc-test.component";
 
 export const appRouting = [
     {

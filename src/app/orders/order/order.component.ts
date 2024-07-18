@@ -3,6 +3,8 @@ import { StateService } from '@uirouter/angular';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UIRouterModule } from '@uirouter/angular';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { CoffeeService } from '../../coffee-service';
 import { Coffee } from '../../model/coffee';
 import { AlertMessageService } from '../../alert-message.service';
@@ -10,16 +12,15 @@ import { AlertMessageService } from '../../alert-message.service';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor, UIRouterModule, FormsModule],
+  imports: [NgFor, UIRouterModule, CommonModule, FormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
-export class OrderComponent implements OnInit {
-  orders: Coffee[] = [];
+export class OrderComponent implements OnInit{
+  coffees : Coffee[] = [];
+  filter: string = '';
   filterFields = { roaster: '', size: '', roast: '', format: '' };
   @Output() messageEvent = new EventEmitter<string>();
-
-
   constructor(private coffeeSvc : CoffeeService, private alertService: AlertMessageService, private stateService: StateService) {
     this.loadPage();
    }
@@ -31,8 +32,9 @@ export class OrderComponent implements OnInit {
     this.loadPage();
   }
   loadPage(){
-    this.coffeeSvc.getActives().subscribe(orders => {
-      this.orders = orders;
+    this.coffeeSvc.getAll()
+    .subscribe(orders => {
+       this.coffees = orders;
     });
   }
 
@@ -43,10 +45,10 @@ export class OrderComponent implements OnInit {
       && this.filterFields.roast.toString() === ''
       && this.filterFields.format.toString() === ''
     ) {
-      return this.orders;
+      return this.coffees;
     }
     else {
-      return this.orders
+      return this.coffees
         .filter((order) =>
           this.filterFields.roaster != '' ? order.roaster.toLocaleLowerCase().includes(this.filterFields.roaster.toLocaleLowerCase()) : order.roaster
         )
