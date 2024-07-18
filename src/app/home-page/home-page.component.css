@@ -1,0 +1,10 @@
+.imagem-center img{
+    width: 100%;
+    align-items: center;
+    height: 75vh;
+
+}
+
+img {
+  max-width: 100;
+}

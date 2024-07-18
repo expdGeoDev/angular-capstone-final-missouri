@@ -1,6 +1,7 @@
 import { OrderComponent } from './orders/order/order.component';
 import { CoffeeDetailComponent } from "./coffee-detail/coffee-detail.component";
 import { AboutComponent } from './about/about.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 export const appRouting = [
     {
@@ -22,5 +23,11 @@ export const appRouting = [
         url: '/about-detail',
         component: AboutComponent,
         label: 'About Detail'
+    },
+    {
+        name : 'page',
+        url: '/home-page',
+        component: HomePageComponent,
+        label : 'Home Page'
     }
 ];
