@@ -15,38 +15,30 @@ import { AlertMessageService } from '../alert-message.service';
   styleUrl: './coffee-detail.component.css'
 })
 export class CoffeeDetailComponent {
-  coffeeInput : Coffee;
-  coffee : Coffee;
   constructor(private coffeeSvc : CoffeeService, private alertService: AlertMessageService, private transition: Transition){
-    this.coffeeInput = this.transition.params()['data'];
-
+    const data = this.transition.params()['data'];
+    this.coffee = data ? data : this.initializeDefaultCoffee()
+    
   };
   roastOptions : RoastType[] = ['Light','Medium','Medium-dark', 'Dark']
   formatOptions : FormatType[] = ['Beans','Ground','K-pod'] 
   varietyOptions : VarietyType [] = ['Arabica', 'Robusta', 'Excelsa', 'Liberica'];
-  
-  ngOnInit() {
-    if (this.coffeeInput.id>0){
-      this.coffee = this.coffeeInput;
-    }
-    else{
-      this.loadEmptyCoffee();
-    }
-  }  
-  loadEmptyCoffee(){
-    this.coffee = {
-      "id": 0,
-      "active": true,
-      "roaster": 'bye',
-      "variety": this.varietyOptions[0],
-      "size": 24,
-      "roast": this.roastOptions[0],
-      "format": this.formatOptions[0],
-      "grind": 1,
-      "origin": [''],
-      "singleOrigin": false,
-      "tastingNotes": ""
-    }
+  coffee: Coffee;
+
+  private initializeDefaultCoffee(): Coffee {
+    return {
+      id: 0,
+      active: true,
+      roaster: '',
+      variety: this.varietyOptions[0],
+      size: 24,
+      roast: this.roastOptions[0],
+      format: this.formatOptions[0],
+      grind: 1,
+      origin: [''],
+      singleOrigin: false,
+      tastingNotes: ""
+    };
   }
   
   public saveCoffee(coffee:Coffee){
