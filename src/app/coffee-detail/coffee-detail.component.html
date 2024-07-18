@@ -1,11 +1,11 @@
 <form class="container" #coffeeDetailForm="ngForm" (ngSubmit)="saveCoffee(coffee)">
     <h1>Coffee Information</h1>
     
-    <label class="label">Roaster*</label>
+    <label id="lblRoaster"class="label">Roaster*</label>
     <input type="text" id="roaster" name="roaster" [(ngModel)]="coffee.roaster" required #roaster="ngModel">
     <div *ngIf="roaster.invalid && (roaster.dirty || roaster.touched)" class="error">
         Roaster is required.
-      </div>
+    </div>
 <br>
     
 
