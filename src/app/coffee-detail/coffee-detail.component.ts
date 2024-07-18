@@ -21,19 +21,21 @@ export class CoffeeDetailComponent {
   formatOptions : FormatType[] = ['Beans','Ground','K-pod'] 
   varietyOptions : VarietyType [] = ['Arabica', 'Robusta', 'Excelsa', 'Liberica'];
 
+
   coffee: Coffee = {
-      "id": 0,
-			"active": true,
-			"roaster": 'bye',
-			"variety": this.varietyOptions[0],
-			"size": 24,
-			"roast": this.roastOptions[0],
-			"format": this.formatOptions[0],
-			"grind": 1,
-			"origin": [''],
-			"singleOrigin": false,
-			"tastingNotes": ""
-  }
+    "id": 0,
+    "active": true,
+    "roaster": '',
+    "variety": undefined,
+    "size": 0,
+    "roast": undefined,
+    "format": undefined,
+    "grind": 1,
+    "origin": [''],
+    "singleOrigin": false,
+    "tastingNotes": ""
+}
+
 
   public saveCoffee(coffee:Coffee){
     this.coffeeSvc.addCoffee(coffee).subscribe(newCoffee =>{
