@@ -1,3 +1,5 @@
+
+
 .container {
     display: flex;
     flex-direction: column;
@@ -154,3 +156,10 @@ button:disabled {
     background-color: black;
     color: white;
  }
+
+ .bg-light {
+    border-top: 1px solid black; 
+    padding-bottom: 10px; 
+  }
+  
+  
