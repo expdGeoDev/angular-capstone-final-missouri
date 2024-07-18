@@ -26,7 +26,7 @@ export const appRouting = [
     },
     {
         name : 'page',
-        url: '/home-page',
+        url: '/',
         component: HomePageComponent,
         label : 'Home Page'
     }
