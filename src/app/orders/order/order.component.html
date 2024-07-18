@@ -3,7 +3,6 @@
         <div class="col mt-3">
             <button type="button" class="btn btn-primary" uiSref="coffee-detail" uiSrefActive="active">New Order</button>
         </div>
-        <!--  -->
         <div class="col">
             <label for="txtRoaster">Filter by Roaster</label>
             <input id="txtRoaster" type="text" class="form-control" [(ngModel)]="filterFields.roaster" name="txtRoaster"
@@ -62,3 +61,49 @@
         </tr>
     </tbody>
 </table>
+<div class="row align-text-bottom">
+    <div class="col">
+        Page {{this.pagSelect}} of {{this.pagCount}} ({{this.pagTItems}} items)
+    </div>
+    <div class="col">
+        <nav *ngIf="this.pagTItems > this.pagNItems">
+
+            <div *ngIf="this.pagCount > 11">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous" (click)="setSlice(this.pagSelect-1)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let page of [].constructor(11); let numPage = index" class="page-item">
+                        <a *ngIf="(numPage+1)===6" class="page-link disabled">...</a>
+                        <a *ngIf="(numPage+1)!=6" class="page-link" (click)="setSlice(numPage+1)">{{numPage+1}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" (click)="setSlice(this.pagSelect+1)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div *ngIf="this.pagCount < 10">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous" (click)="setSlice(this.pagSelect-1)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let page of [].constructor(this.pagCount); let numPage = index" class="page-item">
+                        <a class="page-link" (click)="setSlice(numPage+1)">{{numPage+1}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" (click)="setSlice(this.pagSelect+1)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
