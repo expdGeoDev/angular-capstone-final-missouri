@@ -4,7 +4,7 @@ import { OrderComponent } from './order.component';
 import { CoffeeService } from '../../coffee-service';
 import { AlertMessageService } from '../../alert-message.service';
 import { StateService } from '@uirouter/angular';
-import { Coffee } from '../../model/coffee';
+import { coffees } from '../../../data/mock-coffee'
 import { of } from 'rxjs';
 describe('OrderComponent', () => {
 
@@ -12,30 +12,7 @@ describe('OrderComponent', () => {
   let mockAlertSvc : jasmine.SpyObj<AlertMessageService>;
   let mockCoffeeSvc: jasmine.SpyObj<CoffeeService>;
   let mockStateSvc : jasmine.SpyObj<StateService>;
-  let COFFEES : Coffee[] = [{
-            "id": 0, "active": true,
-            "roaster": 'Expresso One', "variety": 'Arabica',
-            "size": 24, "roast": 'Dark',
-            "format": 'Beans', "grind": 1,
-            "origin": [''], "singleOrigin": false,
-            "tastingNotes": ""
-          },{
-            "id": 1, "active": true,
-            "roaster": 'Expresso Two', "variety": 'Arabica',
-            "size": 8, "roast": 'Light',
-            "format": 'Beans', "grind": 1,
-            "origin": [''], "singleOrigin": false,
-            "tastingNotes": ""
-        },{
-          "id": 2, "active": true,
-          "roaster": 'Costa Rica Finnest', 
-          "variety": 'Arabica',
-          "size": 12, "roast": 'Light',
-          "format": 'Beans', "grind": 1,
-          "origin": [''], "singleOrigin": false,
-          "tastingNotes": ""
-      }
-  ]
+
   beforeEach(async () => {
 
     mockCoffeeSvc = jasmine.createSpyObj(['deleteCoffee','getById','addCoffee','updateCoffee', 'getActives']);
@@ -51,7 +28,7 @@ describe('OrderComponent', () => {
       schemas:[NO_ERRORS_SCHEMA]
     })
     .compileComponents();   
-    mockCoffeeSvc.getActives.and.returnValue(of(COFFEES));
+    mockCoffeeSvc.getActives.and.returnValue(of(coffees));
     component = new OrderComponent(mockCoffeeSvc, mockAlertSvc, mockStateSvc);
 
   });
@@ -61,13 +38,13 @@ describe('OrderComponent', () => {
   });
 
   it('deleteCoffee() should call deleteCoffee of service', () =>{
-    component.deleteCoffe(COFFEES[0]);
+    component.deleteCoffe(coffees[0]);
     expect(mockCoffeeSvc.deleteCoffee).toHaveBeenCalled();
   });
 
   
   it('edit() should call go method from StateService', () =>{
-    component.editCoffee(COFFEES[0]);
+    component.editCoffee(coffees[0]);
     expect(mockStateSvc.go).toHaveBeenCalled();
   })
 
