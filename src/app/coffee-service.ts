@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Coffee } from './model/coffee';
-import { Observable } from 'rxjs';
+import { concat, Observable } from 'rxjs';
 import * as config from '../assets/config.json'
 
 import { map, switchMap } from 'rxjs/operators';
@@ -35,6 +35,7 @@ export class CoffeeService {
   }
 
   getById(id:number) : Observable<Coffee>{
+    console.log('searching on:'+this.rootUrl+'/'+id)
     return this.http.get<Coffee>(this.rootUrl+'/'+id)
   }
 
@@ -50,7 +51,8 @@ export class CoffeeService {
   } 
 
   updateCoffee(coffee:Coffee){
-    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
+    console.log('trying to update:' + this.rootUrl + '/' + coffee.id,coffee)
+    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id.toString(), coffee).subscribe();
   }
 
   deleteCoffee(coffee:Coffee) {
