@@ -31,7 +31,7 @@ export class OrderComponent implements OnInit{
     this.loadPage();
   }
   loadPage(){
-    this.coffeeSvc.getAll()
+    this.coffeeSvc.getActives()
     .subscribe(orders => {
        this.coffees = orders;
     });
