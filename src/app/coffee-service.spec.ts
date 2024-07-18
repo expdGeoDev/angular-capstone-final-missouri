@@ -37,8 +37,6 @@ describe('CoffeeService Unit Test', () => {
       done()
     })
   })
-
-
   
   it('Last id attribute is equal to data size', (done) =>{
     service.getAll().subscribe(coffees => {
@@ -47,4 +45,5 @@ describe('CoffeeService Unit Test', () => {
       done()
     })
   })
+  
 });

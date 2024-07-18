@@ -46,11 +46,9 @@ export class CoffeeDetailComponent {
     console.log(coffee);
     if (coffee.id != 0){
         this.coffeeSvc.updateCoffee(coffee);
-        console.log('Coffee Updated' + coffee);
         this.alertService.success('Coffee updated successfully!');
       }else{
       this.coffeeSvc.addCoffee(coffee).subscribe(newCoffee =>{
-        console.log('New Coffee Added' + newCoffee);
         this.alertService.success('Coffee added successfully!');
       })
     }
