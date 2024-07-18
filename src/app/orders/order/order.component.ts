@@ -29,21 +29,18 @@ export class OrderComponent implements OnInit{
   @Output() messageEvent = new EventEmitter<string>();
   constructor(private coffeeSvc : CoffeeService, private alertService: AlertMessageService, private stateService: StateService) {
     this.loadPage();
-  }
+   }
   
-  sendMessage() {
+   sendMessage() {
     this.messageEvent.emit('Message from Child');
   }
-  
   ngOnInit() {
     this.loadPage();
   }
-  
   loadPage(){
     this.coffeeSvc.getActives()
-    .subscribe(coffes => {
-      this.coffees = coffes;
-      this.getFiltered()
+    .subscribe(coffee => {
+       this.coffees = coffee;
     });
   }
 
@@ -56,23 +53,22 @@ export class OrderComponent implements OnInit{
       && this.filterFields.roast.toString() === ''
       && this.filterFields.format.toString() === ''
     ) {
-      coffesFiltered = this.coffes
+      coffesFiltered = this.coffees
     }
     else {
-      coffesFiltered = this.coffesFiltered
+      coffesFiltered = this.coffees
         .filter((coffee) =>
-          this.filterFields.roaster != '' ? order.roaster.toLocaleLowerCase().includes(this.filterFields.roaster.toLocaleLowerCase()) : order.roaster
+          this.filterFields.roaster != '' ? coffee.roaster.toLocaleLowerCase().includes(this.filterFields.roaster.toLocaleLowerCase()) : coffee.roaster
         )
         .filter((coffee) =>
-          Number(this.filterFields.size) != 0 ? order.size.toString().includes(this.filterFields.size) : order.size
+          Number(this.filterFields.size) != 0 ? coffee.size.toString().includes(this.filterFields.size) : coffee.size
         )
         .filter((coffee) =>
-          this.filterFields.roast.toString() != '' ? order.roast?.toString().toLocaleLowerCase().includes(this.filterFields.roast.toString().toLocaleLowerCase()) : order.roast
+          this.filterFields.roast.toString() != '' ? coffee.roast?.toString().toLocaleLowerCase().includes(this.filterFields.roast.toString().toLocaleLowerCase()) : coffee.roast
         )
         .filter((coffee) =>
-          this.filterFields.format.toString() != '' ? order.format?.toString().toLocaleLowerCase().includes(this.filterFields.format.toString().toLocaleLowerCase()) : order.format
-        )
-      userFilter = true;
+          this.filterFields.format.toString() != '' ? coffee.format?.toString().toLocaleLowerCase().includes(this.filterFields.format.toString().toLocaleLowerCase()) : coffee.format
+        );
     }
 
     this.pagTItems = coffesFiltered.length;
@@ -90,6 +86,7 @@ export class OrderComponent implements OnInit{
       this.itemStart = (this.pagSelect * this.pagNItems) - this.pagNItems;
       this.itemEnd = (this.itemStart + this.pagNItems) - (this.pagSelect * this.pagNItems > this.pagTItems ? this.pagTItems - this.itemStart : 0);
     }
+  }
 
   deleteCoffe(coffee : Coffee){
     this.coffeeSvc.deleteCoffee(coffee);
