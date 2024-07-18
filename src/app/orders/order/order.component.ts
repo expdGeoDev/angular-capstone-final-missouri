@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { StateService } from '@uirouter/angular';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UIRouterModule } from '@uirouter/angular';
@@ -6,6 +7,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { CoffeeService } from '../../coffee-service';
 import { Coffee } from '../../model/coffee';
+import { AlertMessageService } from '../../alert-message.service';
 
 @Component({
   selector: 'app-order',
@@ -18,10 +20,14 @@ export class OrderComponent implements OnInit{
   coffees : Coffee[] = [];
   filter: string = '';
   filterFields = { roaster: '', size: '', roast: '', format: '' };
-  constructor( ) { }
-  coffeeSvc = inject(CoffeeService);
-
-
+  @Output() messageEvent = new EventEmitter<string>();
+  constructor(private coffeeSvc : CoffeeService, private alertService: AlertMessageService, private stateService: StateService) {
+    this.loadPage();
+   }
+  
+   sendMessage() {
+    this.messageEvent.emit('Message from Child');
+  }
   ngOnInit() {
     this.loadPage();
   }
@@ -33,12 +39,6 @@ export class OrderComponent implements OnInit{
   }
 
   getFiltered() {
-    console.log(this.filterFields.roaster,
-      this.filterFields.size,
-      this.filterFields.roast,
-      this.filterFields.format
-    );
-
     if (
       this.filterFields.roaster === ''
       && Number(this.filterFields.size) === 0
@@ -64,15 +64,13 @@ export class OrderComponent implements OnInit{
     }
   }
 
-  tableAction(action: string) {
-  }
   deleteCoffe(coffee : Coffee){
     this.coffeeSvc.deleteCoffee(coffee);
     this.loadPage();
+    this.alertService.success("Coffee Deleted Successfully");
   }
-  updateCoffe(coffee : Coffee){
-    this.coffeeSvc.updateCoffee(coffee);
-    this.loadPage();
+  editCoffee(coffee: Coffee) {
+    this.stateService.go('coffee-detail', { data: coffee });
   }
 
 }

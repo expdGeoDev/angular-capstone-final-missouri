@@ -47,11 +47,15 @@
             <td>{{coffee.format}}</td>
             <td>
                 <button type="button" class="btn btn-default" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Edit">
+                    title="Edit"
+                    (click)="editCoffee(coffee)"
+                    >
                     <img src="/assets/edit.svg" alt="Bootstrap" width="20" height="20">
                 </button>
                 <button type="button" class="btn btn-default" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Delete">
+                    title="Delete"
+                    (click)="deleteCoffe(coffee)"
+                    >
                     <img src="/assets/delete.svg" alt="Bootstrap" width="20" height="20">
                 </button>
             </td>
