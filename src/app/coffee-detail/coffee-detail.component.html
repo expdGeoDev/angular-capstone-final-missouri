@@ -1,0 +1,123 @@
+<form class="container" #coffeeDetailForm="ngForm" (ngSubmit)="saveCoffee(coffee)">
+    <h1>Coffee Information</h1>
+    
+    <label class="label">Roaster*</label>
+    <input type="text" id="roaster" name="roaster" [(ngModel)]="coffee.roaster" required #roaster="ngModel">
+    <div *ngIf="roaster.invalid && (roaster.dirty || roaster.touched)" class="error">
+        Roaster is required.
+      </div>
+<br>
+    
+
+<div class="dropDown">
+    <div>
+        <label class="label" style="padding-right: 5px;">Roast Type* </label>
+        <select id="roastType" name="roastType" type="select"  [(ngModel)]="coffee.roast" required>
+            <option *ngFor="let type of roastOptions" [value]="type">{{type}}</option>
+        </select>
+    </div>
+ 
+    <div>
+        <label class="label" style="padding-right: 5px;">Format* </label>
+        <select id="formatType" name="formatType" type="select" [(ngModel)]="coffee.format" required>
+            <option *ngFor="let f of formatOptions" [value]="f">{{f}}</option>
+        </select>
+    </div>
+
+</div>
+
+<br>
+
+<div class="originMaster">
+            
+    <div class="originName">
+        <label class="label">Origin Country* </label>
+        <br>
+        <input type="text" name="origin"  id="origin" [(ngModel)]="coffee.origin" required>
+    </div>
+
+    <div class="form-check form-switch" id="singleOrigin">
+        <input class="form-check-input" type="checkbox" name= "singleOrigin" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="coffee.singleOrigin" checked >
+        <label class="label" for="flexSwitchCheckChecked"> Single Origin</label>
+    </div>
+
+</div>
+
+<br>
+
+<div class="grindSize">
+    <div>
+        <label class="label" for="grind" >Grind*: </label>
+        <span>{{coffee.grind}}</span>
+        <br>
+        <input type="range" name= "grind" class="form-range" min="1" max="10" id="grind" [(ngModel)]="coffee.grind" >
+    </div>
+
+    
+    <div class="checkbox">
+        <label class="label">Size *</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="8" required [(ngModel)]="coffee.size">
+            <label class="form-check-label" for="inlineRadio1">8 </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="12" required [(ngModel)]="coffee.size">
+            <label class="form-check-label" for="inlineRadio2">12 </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="14" required [(ngModel)]="coffee.size">
+            <label class="form-check-label" for="inlineRadio3">14 </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="16" required [(ngModel)]="coffee.size">
+            <label class="form-check-label" for="inlineRadio1">16 </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="18" required [(ngModel)]="coffee.size">
+            <label class="form-check-label" for="inlineRadio2">18 </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="20" required [(ngModel)]="coffee.size">
+            <label class="form-check-label" for="inlineRadio3">20 </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio7" value="24" required [(ngModel)]="coffee.size">
+             <label class="form-check-label" for="inlineRadio3">24 </label>
+          </div>
+        
+        </div>
+   
+</div>
+
+
+<br>
+
+<label class="label" for="variety" >Variety*: </label>
+<div class="btn-group" role="group" aria-label="Basic radio toggle button group" > 
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"   value="Arabica" required [(ngModel)]="coffee.variety">
+    <label class="btn btn-outline-primary" for="btnradio1">Arabica</label>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"  value="Robusta" required [(ngModel)]="coffee.variety">
+    <label class="btn btn-outline-primary" for="btnradio2">Robusta</label>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"  value="Excelsa" required [(ngModel)]="coffee.variety">
+    <label class="btn btn-outline-primary" for="btnradio3">Excelsa</label>
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"  value="Liberica" required [(ngModel)]="coffee.variety">
+    <label class="btn btn-outline-primary" for="btnradio4">Liberica</label>
+  </div>
+
+  <BR>
+
+<div class="TastingNotes">
+    <label class="label" for="TastingNotes" >Tasting Notes</label>
+    <textarea class="form-control" name="tastingNotes" id="tastingNotes" rows="3" placeholder="Tasting notes or “flavor notes” are a taster's written description about the aroma, taste, and character of a coffee." [(ngModel)]="coffee.tastingNotes"></textarea>
+</div>
+
+
+<div class="buttons">
+    <button type="button" name="reset" (click)="coffeeDetailForm.resetForm()" id="reset">Reset</button>
+    <button type="submit"  [disabled]="coffeeDetailForm.form.invalid" name="submit" id="submit">Submit</button>
+</div>
+</form>
