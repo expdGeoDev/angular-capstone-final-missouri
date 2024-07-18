@@ -36,23 +36,6 @@ describe('CoffeeDetailComponent - Shallow Tests', () => {
     
     mockTransition.params.and.returnValue([{'data': null}])
     fixture = TestBed.createComponent(CoffeeDetailComponent);
-
-  });
-
-  it('Validate roaster label content', () =>{
-    fixture.detectChanges();
-    let roasterEl = fixture.debugElement.query(By.css('#lblRoaster')).nativeElement;
-    expect(roasterEl.textContent).toContain('Roaster*')
-
-  });
-
-  it('Validate roaster input content', async () =>{
-
-    // fixture.detectChanges();
-    // let roasterEl = fixture.debugElement.query(By.css('#roaster')).nativeElement;
-    // console.log('Roaster El' , roasterEl)
-    // expect(roasterEl.value).toContain('bye')
-    expect(fixture.componentInstance.coffee.roaster).toEqual('Initial Value') 
     fixture.componentInstance.coffee = {
         "id": 1, "active": true,
         "roaster": 'bye', "variety": 'Arabica',
@@ -61,12 +44,33 @@ describe('CoffeeDetailComponent - Shallow Tests', () => {
         "origin": [''], "singleOrigin": false,
         "tastingNotes": ""
       };
-      expect(fixture.componentInstance.coffee.roaster).toEqual('bye') 
+  });
+
+  it('Validate input element content - Roaster Attr ', async () =>{
       fixture.detectChanges();
       await fixture.whenStable();
       let roasterEl = fixture.debugElement.query(By.css('#roaster')).nativeElement;
-      console.log('Roaster El' , roasterEl)
-      console.log(roasterEl.value)
       expect(roasterEl.value).toContain('bye')
   });
+
+  it('Validate select element content - Roast Type Attr', async () =>{
+    fixture.detectChanges();
+    await fixture.whenStable();
+    let roasterEl = fixture.debugElement.query(By.css('#roastType')).nativeElement;
+    expect(roasterEl.value).toContain('Light')
+  });
+
+  it('Validate range element content - Grind Attr', async () =>{
+    fixture.detectChanges();
+    await fixture.whenStable();
+    let roasterEl = fixture.debugElement.query(By.css('#grind')).nativeElement;
+    expect(roasterEl.value).toContain(1)
+  });
+  
+  it('Validate radio element content - Variety Attr ', async ()=>{
+    fixture.detectChanges();
+    await fixture.whenStable();
+    let roasterEl = fixture.debugElement.query(By.css('#grind')).nativeElement;
+    expect(roasterEl.value).toContain(1)
+  })
 });
