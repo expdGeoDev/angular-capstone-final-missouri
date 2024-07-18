@@ -15,11 +15,5 @@ export const appRouting = [
         params: {
             data: null 
         }
-    },
-    {
-        name: 'coffee-svc-test',
-        url: '/coffee-svc-test',
-        component: CoffeeSvcTestComponent,
-        label: 'Service Tests'
     }
 ];
