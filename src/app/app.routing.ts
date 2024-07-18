@@ -11,6 +11,9 @@ export const appRouting = [
         name : 'coffee-detail',
         url: '/coffee-detail',
         component: CoffeeDetailComponent,
-        label : 'Coffee Detail'
+        label : 'Coffee Detail',
+        params: {
+            data: null 
+        }
     }
 ];
