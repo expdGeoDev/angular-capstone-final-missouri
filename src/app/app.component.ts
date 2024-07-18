@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UIRouterModule } from '@uirouter/angular';
 import {appRouting} from './app.routing'
-import { Subject, Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { AlertMessageComponent } from "./alert-message/alert-message.component";
 
