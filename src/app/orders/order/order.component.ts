@@ -1,20 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from './order.service';
 import { Coffee } from '../../model/Coffee';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { values } from '@uirouter/angular';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor, FormsModule],
+  imports: [NgFor, NgIf, FormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
 export class OrderComponent implements OnInit {
   orders: Coffee[] = [];
   filterFields = { roaster: '', size: '', roast: '', format: '' };
+
+  pagNItems: number = 10;
+  pagTItems: number = 0;
+  pagCount: number = 0;
+  pagSelect: number = 1;
+  itemStart: number = 0;
+  itemEnd: number = 0;
 
   constructor(
     private orderService: OrderService
@@ -23,26 +29,24 @@ export class OrderComponent implements OnInit {
   ngOnInit() {
     this.orderService.getOrders().subscribe(orders => {
       this.orders = orders;
+      this.getFiltered()
     });
   }
 
   getFiltered() {
-    console.log(this.filterFields.roaster,
-      this.filterFields.size,
-      this.filterFields.roast,
-      this.filterFields.format
-    );
 
+    let ordersFiltered: Coffee[] = [];
+    let userFilter: boolean = false;
     if (
       this.filterFields.roaster === ''
       && Number(this.filterFields.size) === 0
       && this.filterFields.roast.toString() === ''
       && this.filterFields.format.toString() === ''
     ) {
-      return this.orders;
+      ordersFiltered = this.orders
     }
     else {
-      return this.orders
+      ordersFiltered = this.orders
         .filter((order) =>
           this.filterFields.roaster != '' ? order.roaster.toLocaleLowerCase().includes(this.filterFields.roaster.toLocaleLowerCase()) : order.roaster
         )
@@ -54,11 +58,24 @@ export class OrderComponent implements OnInit {
         )
         .filter((order) =>
           this.filterFields.format.toString() != '' ? order.format?.toString().toLocaleLowerCase().includes(this.filterFields.format.toString().toLocaleLowerCase()) : order.format
-        );
+        )
+      userFilter = true;
     }
+
+    this.pagTItems = ordersFiltered.length;
+    this.pagCount = Math.ceil(ordersFiltered.length / this.pagNItems);
+
+    if (userFilter) { this.pagSelect = 1 }
+    this.setSlice(this.pagSelect);
+
+    return ordersFiltered.slice(this.itemStart, this.itemEnd);
   }
 
-  tableAction(action: string) {
-    console.log("Table Action: " + action)
+  setSlice(pagSelected: number) {
+    if (pagSelected > 0 && pagSelected <= this.pagCount) {
+      this.pagSelect = pagSelected;
+      this.itemStart = (this.pagSelect * this.pagNItems) - this.pagNItems;
+      this.itemEnd = (this.itemStart + this.pagNItems) - (this.pagSelect * this.pagNItems > this.pagTItems ? this.pagTItems - this.itemStart : 0);
+    }
   }
 }
