@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Coffee } from './model/coffee';
-import { concat, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import * as config from '../assets/config.json'
-
-import { map, switchMap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -20,7 +18,7 @@ export class CoffeeService {
     this.getAll().subscribe( list =>{
       this.lastId = list.length++;
     })
-  }
+    }
 
 
   private loadConfig(){
@@ -31,34 +29,24 @@ export class CoffeeService {
     return this.http.get<Coffee[]>(this.rootUrl)
   }
   getActives() : Observable<Coffee[]>{
-    return this.http.get<Coffee[]>(this.rootUrl + '/?active=true')
+    return this.http.get<Coffee[]>(`${this.rootUrl}?active=true`);
   }
 
-  getById(id:number) : Observable<Coffee>{
-    console.log('searching on:'+this.rootUrl+'/'+id)
-    return this.http.get<Coffee>(this.rootUrl+'/'+id)
+  getById(id: number): Observable<Coffee> {
+    return this.http.get<Coffee>(`${this.rootUrl}/${id}`);
   }
 
-  getLastCoffee(): Observable<Coffee> {
-    return this.getAll().pipe(
-      map(coffees => coffees[coffees.length - 1])
-    );
-  }
-  
   addCoffee(coffee: Coffee): Observable<Coffee> {
-    coffee.id = this.lastId++;
+    coffee.id = ++this.lastId; // Incrementa antes de atribuir
     return this.http.post<Coffee>(this.rootUrl, coffee);
-  } 
-
-  updateCoffee(coffee:Coffee){
-    console.log('trying to update:' + this.rootUrl + '/' + coffee.id,coffee)
-    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id.toString(), coffee).subscribe();
   }
 
-  deleteCoffee(coffee:Coffee) {
+  updateCoffee(coffee: Coffee): Observable<Coffee> {
+    return this.http.put<Coffee>(`${this.rootUrl}/${coffee.id}`, coffee);
+  }
+
+  deleteCoffee(coffee: Coffee): Observable<Coffee> {
     coffee.active = false;
-    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
+    return this.http.put<Coffee>(`${this.rootUrl}/${coffee.id}`, coffee);
   }
-
 }
-
