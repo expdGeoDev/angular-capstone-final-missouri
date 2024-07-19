@@ -37,7 +37,7 @@ export class CoffeeService {
   }
 
   addCoffee(coffee: Coffee): Observable<Coffee> {
-    coffee.id = ++this.lastId; // Incrementa antes de atribuir
+    coffee.id = ++this.lastId;
     return this.http.post<Coffee>(this.rootUrl, coffee);
   }
 

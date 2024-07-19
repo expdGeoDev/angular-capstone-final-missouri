@@ -28,7 +28,7 @@ export class CoffeeDetailComponent {
   }
 
   private ensureNumericId(coffee: Coffee): Coffee {
-    coffee.id = Number(coffee.id); // Garantir que o ID é um número
+    coffee.id = Number(coffee.id);
     return coffee;
   }
 
@@ -49,7 +49,7 @@ export class CoffeeDetailComponent {
   }
 
   public saveCoffee(coffee: Coffee): void {
-    coffee = this.ensureNumericId(coffee); // Garantir que o ID é um número antes de salvar
+    coffee = this.ensureNumericId(coffee);
     console.log(coffee);
   
     if (coffee.id !== 0) {

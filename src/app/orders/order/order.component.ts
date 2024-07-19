@@ -13,7 +13,7 @@ import { AlertMessageService } from '../../alert-message.service';
   standalone: true,
   imports: [NgFor, NgIf, UIRouterModule, CommonModule, FormsModule],
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css'] // Corrigido para styleUrls
+  styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
   coffees: Coffee[] = [];
@@ -99,7 +99,6 @@ export class OrderComponent implements OnInit {
       next: () => {
         console.log('Coffee Deleted');
         this.alertService.success('Coffee deleted successfully!');
-        // Atualiza a lista local de cafés
         this.coffees = this.coffees.filter(c => c.id !== coffee.id);
       },
       error: (error) => {
