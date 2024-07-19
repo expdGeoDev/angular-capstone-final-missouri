@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { StateService } from '@uirouter/angular';
-import { NgFor, NgIf  } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UIRouterModule } from '@uirouter/angular';
 import { CommonModule } from '@angular/common';
@@ -13,10 +13,10 @@ import { AlertMessageService } from '../../alert-message.service';
   standalone: true,
   imports: [NgFor, NgIf, UIRouterModule, CommonModule, FormsModule],
   templateUrl: './order.component.html',
-  styleUrl: './order.component.css'
+  styleUrls: ['./order.component.css'] // Corrigido para styleUrls
 })
-export class OrderComponent implements OnInit{
-  coffees : Coffee[] = [];
+export class OrderComponent implements OnInit {
+  coffees: Coffee[] = [];
   filter: string = '';
   filterFields = { roaster: '', size: '', roast: '', format: '' };
   pagNItems: number = 10;
@@ -27,57 +27,63 @@ export class OrderComponent implements OnInit{
   itemEnd: number = 0;  
 
   @Output() messageEvent = new EventEmitter<string>();
-  constructor(private coffeeSvc : CoffeeService, private alertService: AlertMessageService, private stateService: StateService) {
-    this.loadPage();
-   }
-  
-   sendMessage() {
-    this.messageEvent.emit('Message from Child');
-  }
+
+  constructor(private coffeeSvc: CoffeeService, private alertService: AlertMessageService, private stateService: StateService) { }
+
   ngOnInit() {
     this.loadPage();
   }
-  loadPage(){
-    this.coffeeSvc.getActives()
-    .subscribe(coffee => {
-       this.coffees = coffee;
+
+  sendMessage() {
+    this.messageEvent.emit('Message from Child');
+  }
+
+  loadPage() {
+    this.coffeeSvc.getActives().subscribe({
+      next: (coffees) => {
+        this.coffees = coffees;
+      },
+      error: (error) => {
+        console.error('Error loading coffees', error);
+        this.alertService.error('Failed to load coffees.');
+      }
     });
   }
 
   getFiltered() {
-    let coffesFiltered: Coffee[] = [];
+    let coffeesFiltered: Coffee[] = [];
     let userFilter: boolean = false;
+
     if (
       this.filterFields.roaster === ''
       && Number(this.filterFields.size) === 0
       && this.filterFields.roast.toString() === ''
       && this.filterFields.format.toString() === ''
     ) {
-      coffesFiltered = this.coffees
-    }
-    else {
-      coffesFiltered = this.coffees
+      coffeesFiltered = this.coffees;
+    } else {
+      coffeesFiltered = this.coffees
         .filter((coffee) =>
-          this.filterFields.roaster != '' ? coffee.roaster.toLocaleLowerCase().includes(this.filterFields.roaster.toLocaleLowerCase()) : coffee.roaster
+          this.filterFields.roaster !== '' ? coffee.roaster.toLocaleLowerCase().includes(this.filterFields.roaster.toLocaleLowerCase()) : true
         )
         .filter((coffee) =>
-          Number(this.filterFields.size) != 0 ? coffee.size.toString().includes(this.filterFields.size) : coffee.size
+          Number(this.filterFields.size) !== 0 ? coffee.size.toString().includes(this.filterFields.size) : true
         )
         .filter((coffee) =>
-          this.filterFields.roast.toString() != '' ? coffee.roast?.toString().toLocaleLowerCase().includes(this.filterFields.roast.toString().toLocaleLowerCase()) : coffee.roast
+          this.filterFields.roast.toString() !== '' ? coffee.roast?.toString().toLocaleLowerCase().includes(this.filterFields.roast.toString().toLocaleLowerCase()) : true
         )
         .filter((coffee) =>
-          this.filterFields.format.toString() != '' ? coffee.format?.toString().toLocaleLowerCase().includes(this.filterFields.format.toString().toLocaleLowerCase()) : coffee.format
+          this.filterFields.format.toString() !== '' ? coffee.format?.toString().toLocaleLowerCase().includes(this.filterFields.format.toString().toLocaleLowerCase()) : true
         );
     }
 
-    this.pagTItems = coffesFiltered.length;
-    this.pagCount = Math.ceil(coffesFiltered.length / this.pagNItems);
+    this.pagTItems = coffeesFiltered.length;
+    this.pagCount = Math.ceil(coffeesFiltered.length / this.pagNItems);
 
-    if (userFilter) { this.pagSelect = 1 }
+    if (userFilter) { this.pagSelect = 1; }
     this.setSlice(this.pagSelect);
 
-    return coffesFiltered.slice(this.itemStart, this.itemEnd);
+    return coffeesFiltered.slice(this.itemStart, this.itemEnd);
   }
 
   setSlice(pagSelected: number) {
@@ -88,11 +94,21 @@ export class OrderComponent implements OnInit{
     }
   }
 
-  deleteCoffe(coffee : Coffee){
-    this.coffeeSvc.deleteCoffee(coffee);
-    this.loadPage();
-    this.alertService.success("Coffee Deleted Successfully");
+  deleteCoffee(coffee: Coffee): void {
+    this.coffeeSvc.deleteCoffee(coffee).subscribe({
+      next: () => {
+        console.log('Coffee Deleted');
+        this.alertService.success('Coffee deleted successfully!');
+        // Atualiza a lista local de cafés
+        this.coffees = this.coffees.filter(c => c.id !== coffee.id);
+      },
+      error: (error) => {
+        console.error('Error deleting coffee', error);
+        this.alertService.error('Failed to delete coffee.');
+      }
+    });
   }
+
   editCoffee(coffee: Coffee) {
     this.stateService.go('coffee-detail', { data: coffee });
   }
