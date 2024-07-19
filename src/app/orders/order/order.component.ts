@@ -7,11 +7,13 @@ import { CommonModule } from '@angular/common';
 import { CoffeeService } from '../../coffee-service';
 import { Coffee } from '../../model/coffee';
 import { AlertMessageService } from '../../alert-message.service';
+import { CoffeeDetailComponent } from "../../coffee-detail/coffee-detail.component";
+
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgFor, NgIf, UIRouterModule, CommonModule, FormsModule],
+  imports: [NgFor, NgIf, UIRouterModule, CommonModule, FormsModule, CoffeeDetailComponent],
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css'] // Corrigido para styleUrls
 })
@@ -25,6 +27,10 @@ export class OrderComponent implements OnInit {
   pagSelect: number = 1;
   itemStart: number = 0;
   itemEnd: number = 0;  
+
+
+  selectedCoffee: Coffee | null = null;
+  isModalOpen: boolean = false;
 
   @Output() messageEvent = new EventEmitter<string>();
 
@@ -109,7 +115,19 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  // editCoffee(coffee: Coffee) {
+  //   this.stateService.go('coffee-detail', { data: coffee });
+  // }
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
   editCoffee(coffee: Coffee) {
-    this.stateService.go('coffee-detail', { data: coffee });
+    this.selectedCoffee = coffee;
+    this.openModal(); // Abre o modal para edição
   }
 }

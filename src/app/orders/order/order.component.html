@@ -107,3 +107,9 @@
         </nav>
     </div>
 </div>
+<div id="coffeeModal" class="modal" [ngClass]="{'modal-show': isModalOpen}">
+    <div class="modal-content">
+        <span class="modal-close" (click)="closeModal()">&times;</span>
+        <app-coffee-detail></app-coffee-detail>
+    </div>
+</div>
