@@ -25,7 +25,8 @@ describe('CoffeeService Unit Test', () => {
     let coffeeTest : Coffee;
     service.getById(1).subscribe(coffee => {
       coffeeTest = coffee;
-      expect(coffeeTest.roaster).toBe("Tim Horton's");
+      console.log('Coffef Test' , coffeeTest);
+      expect(coffeeTest.roaster).toBe("Tim Horton's teste");
       done()
     })
   })

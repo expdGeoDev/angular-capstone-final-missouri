@@ -19,8 +19,8 @@ describe('CoffeeDetailComponent', () => {
     mockTransition = jasmine.createSpyObj(['params'])
     await TestBed.configureTestingModule({
       imports: [CoffeeDetailComponent],
-      providers:[{
-        provide : CoffeeService, useValue: mockCoffeeSvc},
+      providers:[
+        {provide : CoffeeService, useValue: mockCoffeeSvc},
         {provide : Transition, useValue :mockTransition}
       ],
       schemas:[NO_ERRORS_SCHEMA]
@@ -61,7 +61,7 @@ describe('CoffeeDetailComponent', () => {
           "origin": [''], "singleOrigin": false,
           "tastingNotes": ""
       }
-      mockCoffeeSvc.updateCoffee.and.returnValue()
+      mockCoffeeSvc.updateCoffee.and.returnValue(of(coffee))
       component.saveCoffee(coffee)
       expect(mockCoffeeSvc.updateCoffee).toHaveBeenCalled()
       expect(mockAlertSvc.success).toHaveBeenCalled()

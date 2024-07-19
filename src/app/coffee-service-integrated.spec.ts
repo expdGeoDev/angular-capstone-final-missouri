@@ -65,7 +65,7 @@ describe('Coffee Service Integrated Test', () =>{
     describe('getActivies', () =>{
         it('should call getActives with the correct URL', () =>{
             coffeSvc.getActives().subscribe();
-            const req = httpTestController.expectOne(baseUrl + '/?active=true');
+            const req = httpTestController.expectOne(baseUrl + '?active=true');
             expect(req.request.method).toBe('GET');
         })
     })
@@ -82,7 +82,7 @@ describe('Coffee Service Integrated Test', () =>{
                       "tastingNotes": ""
             }
 
-            coffeSvc.updateCoffee(coffee);
+            coffeSvc.updateCoffee(coffee).subscribe();
             const req = httpTestController.expectOne(baseUrl + '/2');
             expect(req.request.method).toBe('PUT');
             
@@ -101,7 +101,7 @@ describe('Coffee Service Integrated Test', () =>{
                     "tastingNotes": ""
             }
 
-            coffeSvc.deleteCoffee(coffee);
+            coffeSvc.deleteCoffee(coffee).subscribe();
             const req = httpTestController.expectOne(baseUrl + '/2');
             expect(req.request.method).toBe('PUT');
         })

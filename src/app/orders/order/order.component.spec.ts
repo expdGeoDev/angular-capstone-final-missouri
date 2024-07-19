@@ -30,6 +30,7 @@ describe('OrderComponent', () => {
     .compileComponents();   
     mockCoffeeSvc.getActives.and.returnValue(of(coffees));
     component = new OrderComponent(mockCoffeeSvc, mockAlertSvc, mockStateSvc);
+    component.ngOnInit();
 
   });
 
@@ -38,7 +39,8 @@ describe('OrderComponent', () => {
   });
 
   it('deleteCoffee() should call deleteCoffee of service', () =>{
-    component.deleteCoffe(coffees[0]);
+    mockCoffeeSvc.deleteCoffee.and.returnValue(of(coffees[0]));
+    component.deleteCoffee(coffees[0]);
     expect(mockCoffeeSvc.deleteCoffee).toHaveBeenCalled();
   });
 

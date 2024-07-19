@@ -55,7 +55,6 @@ export class CoffeeDetailComponent {
     if (coffee.id !== 0) {
       this.coffeeSvc.updateCoffee(coffee).subscribe({
         next: (updatedCoffee) => {
-          console.log('Coffee Updated', updatedCoffee);
           this.alertService.success('Coffee updated successfully!');
           this.coffee = this.initializeDefaultCoffee();
         },
@@ -67,12 +66,10 @@ export class CoffeeDetailComponent {
     } else {
       this.coffeeSvc.addCoffee(coffee).subscribe({
         next: (newCoffee) => {
-          console.log('New Coffee Added', newCoffee);
           this.alertService.success('Coffee added successfully!');
           this.coffee = this.initializeDefaultCoffee();
         },
         error: (error) => {
-          console.error('Error adding coffee', error);
           this.alertService.error('Failed to add coffee.');
         }
       });
