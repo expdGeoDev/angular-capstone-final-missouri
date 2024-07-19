@@ -57,7 +57,7 @@
 <div class="grindSize">
     <div>
         <label class="label" style="padding-right: 5px;">Size* </label>
-        <select id="formatType" name="formatType" type="select" [(ngModel)]="coffee.size" required  #size="ngModel">
+        <select id="size" name="size" type="select" [(ngModel)]="coffee.size" required  #size="ngModel">
             <option *ngFor="let size of sizes" [value]="size">{{size}}</option>
         </select>
         <div *ngIf="size.invalid && (size.dirty || size.touched)" class="error">
@@ -77,17 +77,17 @@
 <label class="label" for="variety" >Variety*: </label>
 <div class="btn-group" role="group" aria-label="Basic radio toggle button group" > 
 
-    <input type="radio" class="btn-check" name="btnradio" id="rdArabica" autocomplete="off"   value="Arabica" required [(ngModel)]="coffee.variety">
-    <label class="btn btn-outline-primary" for="btnradio1">Arabica</label>
+    <input type="radio" class="btn-check" name="rdArabica" id="rdArabica" autocomplete="off"   value="Arabica" required [(ngModel)]="coffee.variety">
+    <label class="btn btn-outline-primary" for="rdArabica">Arabica</label>
   
-    <input type="radio" class="btn-check" name="btnradio" id="rdRobusta" autocomplete="off"  value="Robusta" required [(ngModel)]="coffee.variety">
-    <label class="btn btn-outline-primary" for="btnradio2">Robusta</label>
+    <input type="radio" class="btn-check" name="rdRobusta" id="rdRobusta" autocomplete="off"  value="Robusta" required [(ngModel)]="coffee.variety">
+    <label class="btn btn-outline-primary" for="rdRobusta">Robusta</label>
   
-    <input type="radio" class="btn-check" name="btnradio" id="rdExcelsa" autocomplete="off"  value="Excelsa" required [(ngModel)]="coffee.variety">
-    <label class="btn btn-outline-primary" for="btnradio3">Excelsa</label>
+    <input type="radio" class="btn-check" name="rdExcelsa" id="rdExcelsa" autocomplete="off"  value="Excelsa" required [(ngModel)]="coffee.variety">
+    <label class="btn btn-outline-primary" for="rdExcelsa">Excelsa</label>
 
-    <input type="radio" class="btn-check" name="btnradio" id="tdLiberica" autocomplete="off"  value="Liberica" required [(ngModel)]="coffee.variety">
-    <label class="btn btn-outline-primary" for="btnradio4">Liberica</label>
+    <input type="radio" class="btn-check" name="tdLiberica" id="tdLiberica" autocomplete="off"  value="Liberica" required [(ngModel)]="coffee.variety">
+    <label class="btn btn-outline-primary" for="tdLiberica">Liberica</label>
   </div>
 
   <BR>
