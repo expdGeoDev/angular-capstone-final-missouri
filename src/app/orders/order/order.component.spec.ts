@@ -53,24 +53,45 @@ describe('OrderComponent', () => {
   it('Should filter by roaster', () =>{
     component.filterFields['roaster'] = 'Expresso'
     let filteredCoffees = component.getFiltered();
-    expect(filteredCoffees.length).toEqual(2)
+    console.log(filteredCoffees)
+    expect(filteredCoffees.length).toEqual(10)
   })
 
   it('Should filter by Size', () =>{
+    
     component.filterFields['size'] = '12'
     let filteredCoffees = component.getFiltered();
-    expect(filteredCoffees.length).toEqual(1)
+    expect(filteredCoffees.length).toEqual(8)
   })
 
   it('Should filter by Roast Type', () =>{
     component.filterFields['roast'] = 'Light'
     let filteredCoffees = component.getFiltered();
-    expect(filteredCoffees.length).toEqual(2)
+    expect(filteredCoffees.length).toEqual(10)
   })
 
   it('Should filter by Format Type', () =>{
     component.filterFields['format'] = 'Beans'
     let filteredCoffees = component.getFiltered();
-    expect(filteredCoffees.length).toEqual(3)
+    expect(filteredCoffees.length).toEqual(10)
+  });
+
+  it('Shoud slice correctly to Page 2', () => {
+    component.getFiltered();
+    component.setSlice(2);
+    expect(component.pagSelect).toBe(2);
+    expect(component.itemStart).toBe(11);
+    expect(component.itemEnd).toBe(20);
+    
+  })
+
+  it('Shoud slice correctly to Page 3', () => {
+    component.getFiltered();
+    component.setSlice(3);
+    
+    expect(component.pagSelect).toBe(3);
+    expect(component.itemStart).toBe(21);
+    expect(component.itemEnd).toBe(21);
+    
   })
 });

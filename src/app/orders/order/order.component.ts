@@ -78,19 +78,27 @@ export class OrderComponent implements OnInit {
     }
 
     this.pagTItems = coffeesFiltered.length;
+    console.log('Total itens', this.pagTItems);
     this.pagCount = Math.ceil(coffeesFiltered.length / this.pagNItems);
-
+    console.log('Total Pages', this.pagCount);
     if (userFilter) { this.pagSelect = 1; }
     this.setSlice(this.pagSelect);
 
-    return coffeesFiltered.slice(this.itemStart, this.itemEnd);
+    console.log('Coffes filtered', this.itemStart , ' - ' , this.itemEnd)
+    return coffeesFiltered.slice(this.itemStart-1, this.itemEnd);
   }
 
   setSlice(pagSelected: number) {
+    console.log('Setting to page', pagSelected);
     if (pagSelected > 0 && pagSelected <= this.pagCount) {
       this.pagSelect = pagSelected;
-      this.itemStart = (this.pagSelect * this.pagNItems) - this.pagNItems;
-      this.itemEnd = (this.itemStart + this.pagNItems) - (this.pagSelect * this.pagNItems > this.pagTItems ? this.pagTItems - this.itemStart : 0);
+      this.itemStart = ((this.pagSelect * this.pagNItems) - this.pagNItems)+1;
+      if(this.pagSelect * this.pagNItems >= this.pagTItems){
+        this.itemEnd = this.pagTItems;
+      }
+      else{
+        this.itemEnd = this.pagSelect * this.pagNItems;
+      }  
     }
   }
 
