@@ -46,5 +46,56 @@ describe('CoffeeService Unit Test', () => {
       done()
     })
   })
+
+  it('should add a coffee to the list', (done) =>{
+    let mariCoffee: Coffee = {
+      "id": 0, "active": true,
+      "roaster": 'MariCoffee', "variety": 'Arabica',
+      "size": 24, "roast": 'Light',
+      "format": 'Beans', "grind": 1,
+      "origin": [''], "singleOrigin": false,
+      "tastingNotes": ""
+    }
+   
+    service.addCoffee(mariCoffee).subscribe( coffee => {
+     service.getAll().subscribe(coffees =>{
+       expect(coffees).toContain(mariCoffee)
+       done()
+      })
+    })
+  });
+
+  it('Should update coffee data', (done) =>{
+    let mariCoffee: Coffee = {
+      "id": 2, "active": true,
+      "roaster": 'MariCoffee', "variety": 'Arabica',
+      "size": 24, "roast": 'Light',
+      "format": 'Beans', "grind": 1,
+      "origin": [''], "singleOrigin": false,
+      "tastingNotes": ""
+    };
+    service.updateCoffee(mariCoffee).subscribe( c => {
+      service.getById(2).subscribe(coffee => {
+        expect(coffee.roaster).toEqual('MariCoffee')
+        done()
+      })
+    })
+  });
   
+  it('Should update coffee data', (done) =>{
+    let mariCoffee: Coffee = {
+      "id": 2, "active": true,
+      "roaster": 'MariCoffee', "variety": 'Arabica',
+      "size": 24, "roast": 'Light',
+      "format": 'Beans', "grind": 1,
+      "origin": [''], "singleOrigin": false,
+      "tastingNotes": ""
+    };
+    service.deleteCoffee(mariCoffee).subscribe( c => {
+      service.getById(2).subscribe(coffee => {
+        expect(coffee.active).toBeFalse();
+        done()
+      })
+    })
+  });
 });
