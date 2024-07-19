@@ -12,16 +12,22 @@
 <div class="dropDown">
     <div>
         <label class="label" style="padding-right: 5px;">Roast Type* </label>
-        <select id="roastType" name="roastType" type="select"  [(ngModel)]="coffee.roast" required>
+        <select id="roastType" name="roastType" type="select"  [(ngModel)]="coffee.roast" required required #roastType="ngModel">
             <option *ngFor="let type of roastOptions" [value]="type">{{type}}</option>
         </select>
+        <div *ngIf="roastType.invalid && (roastType.dirty || roastType.touched)" class="error">
+            Roast Type is required.
+          </div>
     </div>
  
     <div>
         <label class="label" style="padding-right: 5px;">Format* </label>
-        <select id="formatType" name="formatType" type="select" [(ngModel)]="coffee.format" required>
+        <select id="formatType" name="formatType" type="select" [(ngModel)]="coffee.format" required  #formatType="ngModel">
             <option *ngFor="let f of formatOptions" [value]="f">{{f}}</option>
         </select>
+        <div *ngIf="formatType.invalid && (formatType.dirty || formatType.touched)" class="error">
+            Format Type Type is required.
+          </div>
     </div>
 
 </div>
@@ -33,7 +39,10 @@
     <div class="originName">
         <label class="label">Origin Country* </label>
         <br>
-        <input type="text" name="origin"  id="origin" [(ngModel)]="coffee.origin" required>
+        <input type="text" name="origin"  id="origin" [(ngModel)]="coffee.origin" required #origin="ngModel">
+        <div *ngIf="origin.invalid && (origin.dirty || origin.touched)" class="error">
+            Origin Type is required.
+          </div>
     </div>
 
     <div class="form-check form-switch" id="singleOrigin">
@@ -47,48 +56,21 @@
 
 <div class="grindSize">
     <div>
+        <label class="label" style="padding-right: 5px;">Size* </label>
+        <select id="formatType" name="formatType" type="select" [(ngModel)]="coffee.size" required  #size="ngModel">
+            <option *ngFor="let size of sizes" [value]="size">{{size}}</option>
+        </select>
+        <div *ngIf="size.invalid && (size.dirty || size.touched)" class="error">
+            Size is required.
+        </div>
+    </div>   
+    <div>
         <label class="label" for="grind" >Grind*: </label>
-        <span>{{coffee.grind}}</span>
+        <span> {{coffee.grind}}</span>
         <br>
         <input id="grind" type="range" name= "grind" class="form-range" min="1" max="10" id="grind" [(ngModel)]="coffee.grind" >
     </div>
-
-    
-    <div class="checkbox">
-        <label class="label">Size *</label>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="8" required [(ngModel)]="coffee.size">
-            <label class="form-check-label" for="inlineRadio1">8 </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="12" required [(ngModel)]="coffee.size">
-            <label class="form-check-label" for="inlineRadio2">12 </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="14" required [(ngModel)]="coffee.size">
-            <label class="form-check-label" for="inlineRadio3">14 </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="16" required [(ngModel)]="coffee.size">
-            <label class="form-check-label" for="inlineRadio1">16 </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="18" required [(ngModel)]="coffee.size">
-            <label class="form-check-label" for="inlineRadio2">18 </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="20" required [(ngModel)]="coffee.size">
-            <label class="form-check-label" for="inlineRadio3">20 </label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio7" value="24" required [(ngModel)]="coffee.size">
-             <label class="form-check-label" for="inlineRadio3">24 </label>
-          </div>
-        
-        </div>
-   
 </div>
-
 
 <br>
 
@@ -121,3 +103,4 @@
     <button type="submit"  [disabled]="coffeeDetailForm.form.invalid" name="submit" id="submit">Submit</button>
 </div>
 </form>
+

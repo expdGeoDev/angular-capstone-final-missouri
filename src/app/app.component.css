@@ -38,3 +38,41 @@ footer {
     color: red; 
     transition: background-color 0.3s, color 0.3s; 
   }
+
+  .bg-light {
+    border-top: 1px solid black; 
+    padding-bottom: 10px; 
+  }
+  
+  
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff; 
+    color: black;
+    height: 13vh;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+  }
+
+  .header-p {
+
+    font-size: 15px;
+  }
+
+  .column-adjust {
+    display: flex;
+   flex-direction: row;
+   gap: 20px;
+   margin-left: 30px;
+  }
+
+  .column-adjust2 {
+    display: flex;
+   flex-direction: row;
+   gap: 20px;
+   margin-left: 100px;
+  }

@@ -4,8 +4,6 @@ import { Coffee } from './model/coffee';
 import { Observable } from 'rxjs';
 import * as config from '../assets/config.json'
 
-import { map, switchMap } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +18,7 @@ export class CoffeeService {
     this.getAll().subscribe( list =>{
       this.lastId = list.length++;
     })
-  }
+    }
 
 
   private loadConfig(){
@@ -31,32 +29,24 @@ export class CoffeeService {
     return this.http.get<Coffee[]>(this.rootUrl)
   }
   getActives() : Observable<Coffee[]>{
-    return this.http.get<Coffee[]>(this.rootUrl + '/?active=true')
+    return this.http.get<Coffee[]>(`${this.rootUrl}?active=true`);
   }
 
-  getById(id:number) : Observable<Coffee>{
-    return this.http.get<Coffee>(this.rootUrl+'/'+id)
+  getById(id: number): Observable<Coffee> {
+    return this.http.get<Coffee>(`${this.rootUrl}/${id}`);
   }
 
-  getLastCoffee(): Observable<Coffee> {
-    return this.getAll().pipe(
-      map(coffees => coffees[coffees.length - 1])
-    );
-  }
-  
   addCoffee(coffee: Coffee): Observable<Coffee> {
-    coffee.id = this.lastId++;
+    coffee.id = ++this.lastId;
     return this.http.post<Coffee>(this.rootUrl, coffee);
-  } 
-
-  updateCoffee(coffee:Coffee){
-    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
   }
 
-  deleteCoffee(coffee:Coffee) {
+  updateCoffee(coffee: Coffee): Observable<Coffee> {
+    return this.http.put<Coffee>(`${this.rootUrl}/${coffee.id}`, coffee);
+  }
+
+  deleteCoffee(coffee: Coffee): Observable<Coffee> {
     coffee.active = false;
-    this.http.put<Coffee>(this.rootUrl + '/' + coffee.id, coffee).subscribe();
+    return this.http.put<Coffee>(`${this.rootUrl}/${coffee.id}`, coffee);
   }
-
 }
-

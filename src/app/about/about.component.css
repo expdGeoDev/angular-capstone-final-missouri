@@ -13,3 +13,22 @@ label {
 span {
 	font-weight: bold;
 }
+
+.bg-light {
+    border-top: 1px solid black; 
+    padding-bottom: 10px; 
+  }
+  
+  
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff; 
+    color: black;
+    height: 13vh;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+  }
